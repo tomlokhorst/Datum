@@ -10,14 +10,18 @@ import Foundation
 
 extension RelativeDateTime {
   public var localDateTimeForUTC: LocalDateTime {
-    return LocalDateTime(timeinterval: timeinterval, local: Local.UTCOffset(0))
+    return LocalDateTime(nsdate: nsdate, local: Local.UTCOffset(0))
   }
 
   public func localDateTimeFor(# timezone: NSTimeZone) -> LocalDateTime {
-    return LocalDateTime(timeinterval: timeinterval, local: Local.TimeZone(timezone))
+    var date = nsdate
+    date = date.dateByAddingTimeInterval(-NSTimeInterval(timezone.secondsFromGMTForDate(date)))
+    return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
   }
 
   public func localDateTimeFor(# utcOffset: NSTimeInterval) -> LocalDateTime {
-    return LocalDateTime(timeinterval: timeinterval, local: Local.UTCOffset(utcOffset))
+    var date = nsdate
+    date = date.dateByAddingTimeInterval(-utcOffset)
+    return LocalDateTime(nsdate: date, local: Local.UTCOffset(utcOffset))
   }
 }

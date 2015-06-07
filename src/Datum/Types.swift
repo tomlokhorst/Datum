@@ -14,30 +14,30 @@ enum Local {
 }
 
 public struct LocalDateTime {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
   internal let local: Local
 }
 
 public struct LocalDate {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
   internal let local: Local
 }
 
 public struct LocalTime {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
   internal let local: Local
 }
 
 public struct RelativeDateTime {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
 }
 
 public struct RelativeDate {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
 }
 
 public struct RelativeTime {
-  internal let timeinterval: NSTimeInterval
+  internal let nsdate: NSDate
 }
 
 public enum HammerTime {

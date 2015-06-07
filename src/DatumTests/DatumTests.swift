@@ -8,28 +8,39 @@
 
 import UIKit
 import XCTest
+import Datum
 
 class DatumTests: XCTestCase {
 
-  override func setUp() {
-    super.setUp()
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-  }
+  func testRelative() {
+    //    println(NSTimeZone.knownTimeZoneNames())
+    let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
+    let sydney = NSTimeZone(name: "Australia/Sydney")!
+    let brisbane = NSTimeZone(name: "Australia/Brisbane")!
+    let newyork = NSTimeZone(name: "America/New_York")!
 
-  override func tearDown() {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    super.tearDown()
-  }
-
-  func testExample() {
-    // This is an example of a functional test case.
+    let rdt = RelativeDateTime.parse("2015-03-06T09:28:42")!
+    println("Relative   \(rdt)")
+    println("Amsterdam  \(rdt.localDateTimeFor(timezone: amsterdam))")
+    println("Sydney     \(rdt.localDateTimeFor(timezone: sydney))")
+    println("Brisbane   \(rdt.localDateTimeFor(timezone: brisbane))")
+    println("New York   \(rdt.localDateTimeFor(timezone: newyork))")
+    println("15mins     \(rdt.localDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
     XCTAssert(true, "Pass")
   }
 
-  func testPerformanceExample() {
-    // This is an example of a performance test case.
+  func testLocal() {
+
+    let ldt = LocalDateTime.parse("2015-03-06T09:28:42+03:00")!
+    println("Local   \(ldt)")
+    XCTAssert(true, "Pass")
+  }
+
+  func testPerformanceParse() {
     self.measureBlock() {
-      // Put the code you want to measure the time of here.
+      for (var i = 0; i < 10000; i++) {
+        RelativeDateTime.parse("2015-05-06T09:28:42")
+      }
     }
   }
 }
