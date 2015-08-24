@@ -18,11 +18,6 @@ public struct LocalDateTime {
   internal let local: Local
 }
 
-public struct LocalDate {
-  internal let nsdate: NSDate
-  internal let local: Local
-}
-
 public struct LocalTime {
   internal let nsdate: NSDate
   internal let local: Local

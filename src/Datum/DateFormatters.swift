@@ -12,6 +12,7 @@ struct DateFormatters {
   static var cache: [String: NSDateFormatter] = [
     "yyyy-MM-dd'T'HH:mm:ssZZZZZ": localDateTime,
     "yyyy-MM-dd'T'HH:mm:ss": relativeDateTime,
+    "yyyy-MM-dd": relativeDate
   ]
 
   static func formatterForFormat(formatString: String) -> NSDateFormatter {
@@ -36,6 +37,14 @@ struct DateFormatters {
   static let relativeDateTime: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    formatter.timeZone = NSTimeZone(name: "UTC")
+
+    return formatter
+  }()
+
+  static let relativeDate: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
     formatter.timeZone = NSTimeZone(name: "UTC")
 
     return formatter

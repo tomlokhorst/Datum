@@ -18,14 +18,17 @@ class DatumTests: XCTestCase {
     let sydney = NSTimeZone(name: "Australia/Sydney")!
     let brisbane = NSTimeZone(name: "Australia/Brisbane")!
     let newyork = NSTimeZone(name: "America/New_York")!
+    let hawaii = NSTimeZone(name: "US/Hawaii")!
 
     let rdt = RelativeDateTime.parse("2015-03-06T09:28:42")!
     print("Relative   \(rdt)")
+    print("Date       \(rdt.date)")
     print("UTC        \(rdt.localDateTimeForUTC)")
     print("Amsterdam  \(rdt.localDateTimeFor(timezone: amsterdam))")
     print("Sydney     \(rdt.localDateTimeFor(timezone: sydney))")
     print("Brisbane   \(rdt.localDateTimeFor(timezone: brisbane))")
     print("New York   \(rdt.localDateTimeFor(timezone: newyork))")
+    print("Hawaii     \(rdt.localDateTimeFor(timezone: hawaii))")
     print("15mins     \(rdt.localDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
     XCTAssert(true, "Pass")
   }
@@ -39,7 +42,8 @@ class DatumTests: XCTestCase {
 
   func testPerformanceParse() {
     self.measureBlock() {
-      for (var i = 0; i < 10000; i++) {
+      let count = 1 // 10000
+      for (var i = 0; i < count; i++) {
         RelativeDateTime.parse("2015-05-06T09:28:42")
       }
     }
