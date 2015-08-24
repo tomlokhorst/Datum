@@ -19,7 +19,7 @@ extension Local {
   }
 }
 
-extension LocalDateTime: Printable {
+extension LocalDateTime: CustomStringConvertible {
   public var description: String {
     let formatter = NSDateFormatter()
     formatter.dateFormat = DateFormatters.localDateTime.dateFormat
@@ -28,7 +28,7 @@ extension LocalDateTime: Printable {
   }
 }
 
-extension RelativeDateTime: Printable {
+extension RelativeDateTime: CustomStringConvertible {
   public var description: String {
     return DateFormatters.relativeDateTime.stringFromDate(nsdate)
   }

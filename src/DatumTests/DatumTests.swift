@@ -20,19 +20,20 @@ class DatumTests: XCTestCase {
     let newyork = NSTimeZone(name: "America/New_York")!
 
     let rdt = RelativeDateTime.parse("2015-03-06T09:28:42")!
-    println("Relative   \(rdt)")
-    println("Amsterdam  \(rdt.localDateTimeFor(timezone: amsterdam))")
-    println("Sydney     \(rdt.localDateTimeFor(timezone: sydney))")
-    println("Brisbane   \(rdt.localDateTimeFor(timezone: brisbane))")
-    println("New York   \(rdt.localDateTimeFor(timezone: newyork))")
-    println("15mins     \(rdt.localDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
+    print("Relative   \(rdt)")
+    print("UTC        \(rdt.localDateTimeForUTC)")
+    print("Amsterdam  \(rdt.localDateTimeFor(timezone: amsterdam))")
+    print("Sydney     \(rdt.localDateTimeFor(timezone: sydney))")
+    print("Brisbane   \(rdt.localDateTimeFor(timezone: brisbane))")
+    print("New York   \(rdt.localDateTimeFor(timezone: newyork))")
+    print("15mins     \(rdt.localDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
     XCTAssert(true, "Pass")
   }
 
   func testLocal() {
 
     let ldt = LocalDateTime.parse("2015-03-06T09:28:42+03:00")!
-    println("Local   \(ldt)")
+    print("Local   \(ldt)")
     XCTAssert(true, "Pass")
   }
 

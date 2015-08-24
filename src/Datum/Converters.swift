@@ -13,13 +13,13 @@ extension RelativeDateTime {
     return LocalDateTime(nsdate: nsdate, local: Local.UTCOffset(0))
   }
 
-  public func localDateTimeFor(# timezone: NSTimeZone) -> LocalDateTime {
+  public func localDateTimeFor(timezone timezone: NSTimeZone) -> LocalDateTime {
     var date = nsdate
     date = date.dateByAddingTimeInterval(-NSTimeInterval(timezone.secondsFromGMTForDate(date)))
     return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
   }
 
-  public func localDateTimeFor(# utcOffset: NSTimeInterval) -> LocalDateTime {
+  public func localDateTimeFor(utcOffset utcOffset: NSTimeInterval) -> LocalDateTime {
     var date = nsdate
     date = date.dateByAddingTimeInterval(-utcOffset)
     return LocalDateTime(nsdate: date, local: Local.UTCOffset(utcOffset))
