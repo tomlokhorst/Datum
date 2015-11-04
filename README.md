@@ -60,14 +60,14 @@ This library is particularly useful for parsing dates from external API's that d
 For example, an API that produces dates+times without timezone information, but that has documentation which says: _"All times returned by this API are Dutch times"_
 
 ```swift
-// Lookup Amsterdam timezone in OS database
-let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
-
 // DateTime from API, without timezone information
 let str = "2015-08-24T22:10:05"
 
 // Parse to RelativeDateTime, timezone is left unspecified
 let rdt = RelativeDateTime.parse(str)!
+
+// Lookup Amsterdam timezone in OS database
+let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
 
 // Convert unspecific RelativeDateTime to specific LocalDateTime
 let ldt = rdt.localDateTimeFor(timezone: amsterdam)
@@ -78,4 +78,3 @@ formatter.dateStyle = NSDateFormatterStyle.MediumStyle
 formatter.timeStyle = NSDateFormatterStyle.MediumStyle
 let displayString = formatter.stringFromDate(ldt.absoluteDateTime)
 ```
-
