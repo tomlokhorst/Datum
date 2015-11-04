@@ -10,23 +10,25 @@ import Foundation
 
 extension LocalDateTime {
   public static func parse(string: String) -> LocalDateTime? {
-    if let date = DateFormatters.localDateTime.dateFromString(string) {
-      let start = advance(string.startIndex, 19)
-      let end = advance(start, 6)
-      let abbr = string.substringWithRange(Range(start: start, end: end))
-      let timezone = NSTimeZone(abbreviation: "UTC\(abbr)")!
-
-      return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
+    guard let date = DateFormatters.localDateTime.dateFromString(string) else {
+      return nil
     }
-    return nil
+
+    let start = string.startIndex.advancedBy(19)
+    let end = start.advancedBy(6)
+    let abbr = string.substringWithRange(Range(start: start, end: end))
+    let timezone = NSTimeZone(abbreviation: "UTC\(abbr)")!
+
+    return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
   }
 }
 
 extension RelativeDateTime {
   public static func parse(string: String) -> RelativeDateTime? {
-    if let date = DateFormatters.relativeDateTime.dateFromString(string) {
-      return RelativeDateTime(nsdate: date)
+    guard let date = DateFormatters.relativeDateTime.dateFromString(string) else {
+      return nil
     }
-    return nil
+
+    return RelativeDateTime(nsdate: date)
   }
 }
