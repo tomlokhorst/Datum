@@ -12,6 +12,31 @@ import Datum
 
 class DatumTests: XCTestCase {
 
+  func testChristmas() {
+    let london = NSTimeZone(name: "Europe/London")!
+
+    // Already Christmas day in NL, not yet in UK
+    let before = OffsetDateTime.parse("2016-12-25T00:30:00+01:00")!
+
+    // Christmas day in both NL, and UK
+    let during = OffsetDateTime.parse("2016-12-25T10:30:00+01:00")!
+
+    // No longer Christmas day in NL, but still in UK
+    let still = OffsetDateTime.parse("2016-12-26T00:30:00+01:00")!
+
+    let stringFromServer = "2016-12-25" // Note from server: date in London timzone
+    let christmasDay = RelativeDate.parse(stringFromServer)!
+    let christmasDayInLondon = christmasDay.midnight.zonedDateTimeFor(timeZone: london)
+
+    let calendar = NSCalendar.currentCalendar()
+    calendar.timeZone = london
+
+    print("Before: \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: before.nsdate))")
+    print("During: \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: during.nsdate))")
+    print("Still:  \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: still.nsdate))")
+
+  }
+
   func testRelative() {
 //    print(NSTimeZone.knownTimeZoneNames())
 //    print(NSLocale.availableLocaleIdentifiers())

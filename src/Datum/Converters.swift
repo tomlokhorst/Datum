@@ -43,3 +43,15 @@ extension RelativeDate {
     return RelativeDateTime(nsdate: nsdate)
   }
 }
+
+extension ZonedDateTime {
+  public var nsdate: NSDate {
+    return absoluteDateTime.nsdate
+  }
+}
+
+extension OffsetDateTime {
+  public var nsdate: NSDate {
+    return absoluteDateTime.nsdate
+  }
+}

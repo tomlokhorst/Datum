@@ -19,6 +19,16 @@ extension RelativeDateTime {
   }
 }
 
+extension RelativeDate {
+  public static func parse(string: String) -> RelativeDate? {
+    guard let date = DateFormatters.relativeDate.dateFromString(string) else {
+      return nil
+    }
+
+    return RelativeDate(nsdate: date)
+  }
+}
+
 extension OffsetDateTime {
   public static func parse(string: String) -> OffsetDateTime? {
     guard let date = DateFormatters.offsetDateTime.dateFromString(string) else {
