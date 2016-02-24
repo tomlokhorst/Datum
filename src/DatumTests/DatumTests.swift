@@ -38,6 +38,7 @@ class DatumTests: XCTestCase {
   }
 
   func testRelative() {
+//    print(NSCalendar.currentCalendar().calendarIdentifier)
 //    print(NSTimeZone.knownTimeZoneNames())
 //    print(NSLocale.availableLocaleIdentifiers())
 
@@ -64,8 +65,8 @@ class DatumTests: XCTestCase {
     let formatter = NSDateFormatter()
     formatter.dateStyle = NSDateFormatterStyle.FullStyle
     formatter.locale = NSLocale(localeIdentifier: "en_NZ")
-    formatter.timeZone = auckland // This timezone is ignored
-    print("The inauguration took place on \(formatter.stringFromZonedDateTime(inauguration))")
+    formatter.timeZone = auckland
+    print("The inauguration took place on \(formatter.stringFromDate(inauguration.nsdate))")
 
     XCTAssert(true, "Pass")
   }

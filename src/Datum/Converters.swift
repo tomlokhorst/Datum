@@ -10,7 +10,7 @@ import Foundation
 
 extension RelativeDateTime {
   public var date: RelativeDate {
-    let calendar = NSCalendar.currentCalendar()
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
     let components = calendar.componentsInTimeZone(NSTimeZone(name: "UTC")!, fromDate: nsdate)
     components.hour = 0
     components.minute = 0

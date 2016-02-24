@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E23D88621B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D88611B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift */; };
 		E26D9F7F1B224B1F004DD11D /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F7E1B224B1F004DD11D /* Parsers.swift */; };
 		E26D9F811B224B2A004DD11D /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F801B224B2A004DD11D /* Converters.swift */; };
 		E26D9F831B2356BE004DD11D /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F821B2356BE004DD11D /* DateFormatters.swift */; };
@@ -30,7 +29,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E23D88611B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		E26D9F7E1B224B1F004DD11D /* Parsers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
 		E26D9F801B224B2A004DD11D /* Converters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
 		E26D9F821B2356BE004DD11D /* DateFormatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */,
-				E23D88611B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -252,7 +249,6 @@
 				E26D9F861B2357C8004DD11D /* Printers.swift in Sources */,
 				E26D9F7F1B224B1F004DD11D /* Parsers.swift in Sources */,
 				E280DA791B22427100B5842F /* Types.swift in Sources */,
-				E23D88621B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift in Sources */,
 				E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */,
 				E26D9F811B224B2A004DD11D /* Converters.swift in Sources */,
 			);

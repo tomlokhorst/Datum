@@ -29,12 +29,18 @@ extension RelativeDate: CustomStringConvertible {
 
 extension ZonedDateTime: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.offsetDateTime.stringFromZonedDateTime(self) + " \(timeZone.name)"
+    let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter
+    dateFormatter.timeZone = timeZone
+
+    return dateFormatter.stringFromDate(absoluteDateTime.nsdate) + " \(timeZone.name)"
   }
 }
 
 extension OffsetDateTime: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.offsetDateTime.stringFromOffsetDateTime(self)
+    let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter
+    dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
+
+    return dateFormatter.stringFromDate(absoluteDateTime.nsdate)
   }
 }
