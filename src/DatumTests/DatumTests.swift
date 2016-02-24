@@ -13,29 +13,41 @@ import Datum
 class DatumTests: XCTestCase {
 
   func testRelative() {
-    //    println(NSTimeZone.knownTimeZoneNames())
+//    print(NSTimeZone.knownTimeZoneNames())
+//    print(NSLocale.availableLocaleIdentifiers())
+
     let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
     let sydney = NSTimeZone(name: "Australia/Sydney")!
     let brisbane = NSTimeZone(name: "Australia/Brisbane")!
     let newyork = NSTimeZone(name: "America/New_York")!
     let hawaii = NSTimeZone(name: "US/Hawaii")!
 
-    let rdt = RelativeDateTime.parse("2015-03-06T09:28:42")!
+    let rdt = RelativeDateTime.parse("2013-04-30T14:30:00")!
     print("Relative   \(rdt)")
     print("Date       \(rdt.date)")
-    print("UTC        \(rdt.localDateTimeForUTC)")
-    print("Amsterdam  \(rdt.localDateTimeFor(timezone: amsterdam))")
-    print("Sydney     \(rdt.localDateTimeFor(timezone: sydney))")
-    print("Brisbane   \(rdt.localDateTimeFor(timezone: brisbane))")
-    print("New York   \(rdt.localDateTimeFor(timezone: newyork))")
-    print("Hawaii     \(rdt.localDateTimeFor(timezone: hawaii))")
-    print("15mins     \(rdt.localDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
+    print("UTC        \(rdt.offsetDateTimeForUTC)")
+    print("Amsterdam  \(rdt.zonedDateTimeFor(timeZone: amsterdam))")
+    print("Sydney     \(rdt.zonedDateTimeFor(timeZone: sydney))")
+    print("Brisbane   \(rdt.zonedDateTimeFor(timeZone: brisbane))")
+    print("New York   \(rdt.zonedDateTimeFor(timeZone: newyork))")
+    print("Hawaii     \(rdt.zonedDateTimeFor(timeZone: hawaii))")
+    print("15mins     \(rdt.offsetDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
+
+
+    let inauguration = RelativeDateTime.parse("2013-04-30T14:30:00")!.zonedDateTimeFor(timeZone: amsterdam)
+    let auckland = NSTimeZone(name: "Pacific/Auckland")!
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = NSDateFormatterStyle.FullStyle
+    formatter.locale = NSLocale(localeIdentifier: "en_NZ")
+    formatter.timeZone = auckland // This timezone is ignored
+    print("The inauguration took place on \(formatter.stringFromZonedDateTime(inauguration))")
+
     XCTAssert(true, "Pass")
   }
 
   func testLocal() {
 
-    let ldt = LocalDateTime.parse("2015-03-06T09:28:42+03:00")!
+    let ldt = OffsetDateTime.parse("2015-03-06T09:28:42+03:00")!
     print("Local   \(ldt)")
     XCTAssert(true, "Pass")
   }

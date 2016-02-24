@@ -9,11 +9,21 @@
 import Foundation
 
 extension NSDateFormatter {
-  public func stringFromLocalDateTime(localDateTime: LocalDateTime) -> String {
+  public func stringFromZonedDateTime(zonedDateTime: ZonedDateTime) -> String {
     let previousTimeZone = self.timeZone
-    self.timeZone = localDateTime.local.timeZone
+    self.timeZone = zonedDateTime.timeZone
 
-    let str = self.stringFromDate(localDateTime.nsdate)
+    let str = self.stringFromDate(zonedDateTime.nsdate)
+    self.timeZone = previousTimeZone
+
+    return str
+  }
+
+  public func stringFromOffsetDateTime(offsetDateTime: OffsetDateTime) -> String {
+    let previousTimeZone = self.timeZone
+    self.timeZone = NSTimeZone(forSecondsFromGMT: Int(offsetDateTime.utcOffset))
+
+    let str = self.stringFromDate(offsetDateTime.nsdate)
     self.timeZone = previousTimeZone
 
     return str

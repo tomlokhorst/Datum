@@ -8,19 +8,8 @@
 
 import Foundation
 
-enum Local {
-  case TimeZone(NSTimeZone)
-  case UTCOffset(NSTimeInterval)
-}
-
-public struct LocalDateTime {
+public struct AbsoluteDateTime {
   internal let nsdate: NSDate
-  internal let local: Local
-}
-
-public struct LocalTime {
-  internal let nsdate: NSDate
-  internal let local: Local
 }
 
 public struct RelativeDateTime {
@@ -31,8 +20,24 @@ public struct RelativeDate {
   internal let nsdate: NSDate
 }
 
-public struct RelativeTime {
+public struct ZonedDateTime {
   internal let nsdate: NSDate
+  internal let timeZone: NSTimeZone
+}
+
+public struct ZonedDate {
+  internal let nsdate: NSDate
+  internal let timeZone: NSTimeZone
+}
+
+public struct OffsetDate {
+  internal let nsdate: NSDate
+  internal let utcOffset: NSTimeInterval
+}
+
+public struct OffsetDateTime {
+  internal let nsdate: NSDate
+  internal let utcOffset: NSTimeInterval
 }
 
 public enum HammerTime {

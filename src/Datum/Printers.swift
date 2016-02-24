@@ -8,20 +8,10 @@
 
 import Foundation
 
-extension Local {
-  var timeZone: NSTimeZone {
-    switch self {
-    case .TimeZone(let timezone):
-      return timezone
-    case .UTCOffset(let timeinterval):
-      return NSTimeZone(forSecondsFromGMT: Int(timeinterval))
-    }
-  }
-}
 
-extension LocalDateTime: CustomStringConvertible {
+extension AbsoluteDateTime: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.localDateTime.stringFromLocalDateTime(self)
+    return nsdate.description
   }
 }
 
@@ -34,5 +24,17 @@ extension RelativeDateTime: CustomStringConvertible {
 extension RelativeDate: CustomStringConvertible {
   public var description: String {
     return DateFormatters.relativeDate.stringFromDate(nsdate)
+  }
+}
+
+extension ZonedDateTime: CustomStringConvertible {
+  public var description: String {
+    return DateFormatters.offsetDateTime.stringFromZonedDateTime(self) + " \(timeZone.name)"
+  }
+}
+
+extension OffsetDateTime: CustomStringConvertible {
+  public var description: String {
+    return DateFormatters.offsetDateTime.stringFromOffsetDateTime(self)
   }
 }

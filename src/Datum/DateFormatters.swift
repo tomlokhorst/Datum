@@ -10,9 +10,10 @@ import Foundation
 
 struct DateFormatters {
   static var cache: [String: NSDateFormatter] = [
-    "yyyy-MM-dd'T'HH:mm:ssZZZZZ": localDateTime,
     "yyyy-MM-dd'T'HH:mm:ss": relativeDateTime,
-    "yyyy-MM-dd": relativeDate
+    "yyyy-MM-dd": relativeDate,
+    "yyyy-MM-dd'T'HH:mm:ssZZZZZ": offsetDateTime,
+    "yyyy-MM-ddZZZZZ": offsetDate
   ]
 
   static func formatterForFormat(formatString: String) -> NSDateFormatter {
@@ -27,16 +28,10 @@ struct DateFormatters {
     return formatter
   }
 
-  static let localDateTime: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-
-    return formatter
-  }()
-
   static let relativeDateTime: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(name: "UTC")
 
     return formatter
@@ -45,6 +40,26 @@ struct DateFormatters {
   static let relativeDate: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(name: "UTC")
+
+    return formatter
+  }()
+
+  static let offsetDateTime: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(name: "UTC")
+
+    return formatter
+  }()
+
+
+  static let offsetDate: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-ddZZZZZ"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(name: "UTC")
 
     return formatter

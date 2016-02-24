@@ -8,20 +8,6 @@
 
 import Foundation
 
-extension LocalDateTime {
-  public static func parse(string: String) -> LocalDateTime? {
-    guard let date = DateFormatters.localDateTime.dateFromString(string) else {
-      return nil
-    }
-
-    let start = string.startIndex.advancedBy(19)
-    let end = start.advancedBy(6)
-    let abbr = string.substringWithRange(Range(start: start, end: end))
-    let timezone = NSTimeZone(abbreviation: "UTC\(abbr)")!
-
-    return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
-  }
-}
 
 extension RelativeDateTime {
   public static func parse(string: String) -> RelativeDateTime? {
@@ -30,5 +16,20 @@ extension RelativeDateTime {
     }
 
     return RelativeDateTime(nsdate: date)
+  }
+}
+
+extension OffsetDateTime {
+  public static func parse(string: String) -> OffsetDateTime? {
+    guard let date = DateFormatters.offsetDateTime.dateFromString(string) else {
+      return nil
+    }
+
+    let start = string.startIndex.advancedBy(19)
+    let end = start.advancedBy(6)
+    let abbr = string.substringWithRange(Range(start: start, end: end))
+    let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
+
+    return OffsetDateTime(nsdate: date, utcOffset: NSTimeInterval(timeZone.secondsFromGMT))
   }
 }

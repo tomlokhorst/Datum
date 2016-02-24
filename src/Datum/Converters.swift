@@ -8,17 +8,6 @@
 
 import Foundation
 
-extension LocalDateTime {
-  public var absoluteDateTime: NSDate {
-    return nsdate
-  }
-
-  public func components(calendar optionalCalendar: NSCalendar? = nil) -> NSDateComponents {
-    let calendar = optionalCalendar ?? NSCalendar.currentCalendar()
-    return calendar.componentsInTimeZone(local.timeZone, fromDate: nsdate)
-  }
-}
-
 extension RelativeDateTime {
   public var date: RelativeDate {
     let calendar = NSCalendar.currentCalendar()
@@ -30,25 +19,41 @@ extension RelativeDateTime {
     return RelativeDate(nsdate: components.date!)
   }
 
-  public var localDateTimeForUTC: LocalDateTime {
-    return LocalDateTime(nsdate: nsdate, local: Local.UTCOffset(0))
-  }
-
-  public func localDateTimeFor(timezone timezone: NSTimeZone) -> LocalDateTime {
+  public func zonedDateTimeFor(timeZone timeZone: NSTimeZone) -> ZonedDateTime {
     var date = nsdate
-    date = date.dateByAddingTimeInterval(-NSTimeInterval(timezone.secondsFromGMTForDate(date)))
-    return LocalDateTime(nsdate: date, local: Local.TimeZone(timezone))
+    date = date.dateByAddingTimeInterval(-NSTimeInterval(timeZone.secondsFromGMTForDate(date)))
+    return ZonedDateTime(nsdate: date, timeZone: timeZone)
   }
 
-  public func localDateTimeFor(utcOffset utcOffset: NSTimeInterval) -> LocalDateTime {
+  public func offsetDateTimeFor(utcOffset utcOffset: NSTimeInterval) -> OffsetDateTime {
     var date = nsdate
     date = date.dateByAddingTimeInterval(-utcOffset)
-    return LocalDateTime(nsdate: date, local: Local.UTCOffset(utcOffset))
+    return OffsetDateTime(nsdate: date, utcOffset: utcOffset)
+  }
+
+  public var offsetDateTimeForUTC: OffsetDateTime {
+    return OffsetDateTime(nsdate: nsdate, utcOffset: 0)
   }
 }
 
 extension RelativeDate {
   public var midnight: RelativeDateTime {
     return RelativeDateTime(nsdate: nsdate)
+  }
+}
+
+extension ZonedDateTime {
+  public init(relativeDateTime: RelativeDateTime, timeZone: NSTimeZone) {
+    self.nsdate = relativeDateTime.nsdate
+    self.timeZone = timeZone
+  }
+
+  public var absoluteDateTime: NSDate {
+    return nsdate
+  }
+
+  public func components(calendar optionalCalendar: NSCalendar? = nil) -> NSDateComponents {
+    let calendar = optionalCalendar ?? NSCalendar.currentCalendar()
+    return calendar.componentsInTimeZone(timeZone, fromDate: nsdate)
   }
 }
