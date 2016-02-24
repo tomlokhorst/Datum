@@ -16,6 +16,7 @@
 		E280DA681B22421700B5842F /* Datum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E280DA5C1B22421700B5842F /* Datum.framework */; };
 		E280DA6F1B22421700B5842F /* DatumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA6E1B22421700B5842F /* DatumTests.swift */; };
 		E280DA791B22427100B5842F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA781B22427100B5842F /* Types.swift */; };
+		E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		E280DA6D1B22421700B5842F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E280DA6E1B22421700B5842F /* DatumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatumTests.swift; sourceTree = "<group>"; };
 		E280DA781B22427100B5842F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		E23D88631B8BAC9E0065BFF0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */,
 				E23D88611B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift */,
 			);
 			name = Extensions;
@@ -250,6 +253,7 @@
 				E26D9F7F1B224B1F004DD11D /* Parsers.swift in Sources */,
 				E280DA791B22427100B5842F /* Types.swift in Sources */,
 				E23D88621B8BAB210065BFF0 /* NSDateFormatter+Extensions.swift in Sources */,
+				E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */,
 				E26D9F811B224B2A004DD11D /* Converters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

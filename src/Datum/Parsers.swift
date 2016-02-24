@@ -30,6 +30,8 @@ extension OffsetDateTime {
     let abbr = string.substringWithRange(Range(start: start, end: end))
     let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
 
-    return OffsetDateTime(nsdate: date, utcOffset: NSTimeInterval(timeZone.secondsFromGMT))
+    let absoluteDateTime = AbsoluteDateTime(nsdate: date)
+
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: NSTimeInterval(timeZone.secondsFromGMT))
   }
 }

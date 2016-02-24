@@ -9,25 +9,6 @@
 import Foundation
 
 struct DateFormatters {
-  static var cache: [String: NSDateFormatter] = [
-    "yyyy-MM-dd'T'HH:mm:ss": relativeDateTime,
-    "yyyy-MM-dd": relativeDate,
-    "yyyy-MM-dd'T'HH:mm:ssZZZZZ": offsetDateTime,
-    "yyyy-MM-ddZZZZZ": offsetDate
-  ]
-
-  static func formatterForFormat(formatString: String) -> NSDateFormatter {
-    if let formatter = cache[formatString] {
-      return formatter
-    }
-
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = formatString
-    cache[formatString] = formatter
-
-    return formatter
-  }
-
   static let relativeDateTime: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"

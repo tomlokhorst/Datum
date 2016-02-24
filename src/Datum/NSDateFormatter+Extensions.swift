@@ -13,7 +13,7 @@ extension NSDateFormatter {
     let previousTimeZone = self.timeZone
     self.timeZone = zonedDateTime.timeZone
 
-    let str = self.stringFromDate(zonedDateTime.nsdate)
+    let str = self.stringFromDate(zonedDateTime.absoluteDateTime.nsdate)
     self.timeZone = previousTimeZone
 
     return str
@@ -23,7 +23,7 @@ extension NSDateFormatter {
     let previousTimeZone = self.timeZone
     self.timeZone = NSTimeZone(forSecondsFromGMT: Int(offsetDateTime.utcOffset))
 
-    let str = self.stringFromDate(offsetDateTime.nsdate)
+    let str = self.stringFromDate(offsetDateTime.absoluteDateTime.nsdate)
     self.timeZone = previousTimeZone
 
     return str

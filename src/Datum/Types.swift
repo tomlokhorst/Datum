@@ -21,22 +21,22 @@ public struct RelativeDate {
 }
 
 public struct ZonedDateTime {
-  internal let nsdate: NSDate
+  internal let absoluteDateTime: AbsoluteDateTime
   internal let timeZone: NSTimeZone
 }
 
 public struct ZonedDate {
-  internal let nsdate: NSDate
+  internal let absoluteDateTime: AbsoluteDateTime
   internal let timeZone: NSTimeZone
 }
 
 public struct OffsetDate {
-  internal let nsdate: NSDate
+  internal let absoluteDateTime: AbsoluteDateTime
   internal let utcOffset: NSTimeInterval
 }
 
 public struct OffsetDateTime {
-  internal let nsdate: NSDate
+  internal let absoluteDateTime: AbsoluteDateTime
   internal let utcOffset: NSTimeInterval
 }
 

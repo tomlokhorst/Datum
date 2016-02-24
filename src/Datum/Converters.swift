@@ -20,40 +20,26 @@ extension RelativeDateTime {
   }
 
   public func zonedDateTimeFor(timeZone timeZone: NSTimeZone) -> ZonedDateTime {
-    var date = nsdate
-    date = date.dateByAddingTimeInterval(-NSTimeInterval(timeZone.secondsFromGMTForDate(date)))
-    return ZonedDateTime(nsdate: date, timeZone: timeZone)
+    let date = nsdate.dateByAddingTimeInterval(-NSTimeInterval(timeZone.secondsFromGMTForDate(nsdate)))
+    let absoluteDateTime = AbsoluteDateTime(nsdate: date)
+
+    return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public func offsetDateTimeFor(utcOffset utcOffset: NSTimeInterval) -> OffsetDateTime {
-    var date = nsdate
-    date = date.dateByAddingTimeInterval(-utcOffset)
-    return OffsetDateTime(nsdate: date, utcOffset: utcOffset)
+    let date = nsdate.dateByAddingTimeInterval(-utcOffset)
+    let absoluteDateTime = AbsoluteDateTime(nsdate: date)
+
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 
   public var offsetDateTimeForUTC: OffsetDateTime {
-    return OffsetDateTime(nsdate: nsdate, utcOffset: 0)
+    return OffsetDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: nsdate), utcOffset: 0)
   }
 }
 
 extension RelativeDate {
   public var midnight: RelativeDateTime {
     return RelativeDateTime(nsdate: nsdate)
-  }
-}
-
-extension ZonedDateTime {
-  public init(relativeDateTime: RelativeDateTime, timeZone: NSTimeZone) {
-    self.nsdate = relativeDateTime.nsdate
-    self.timeZone = timeZone
-  }
-
-  public var absoluteDateTime: NSDate {
-    return nsdate
-  }
-
-  public func components(calendar optionalCalendar: NSCalendar? = nil) -> NSDateComponents {
-    let calendar = optionalCalendar ?? NSCalendar.currentCalendar()
-    return calendar.componentsInTimeZone(timeZone, fromDate: nsdate)
   }
 }
