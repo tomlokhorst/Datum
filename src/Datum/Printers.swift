@@ -36,9 +36,27 @@ extension ZonedDateTime: CustomStringConvertible {
   }
 }
 
+extension ZonedDate: CustomStringConvertible {
+  public var description: String {
+    let dateFormatter = DateFormatters.offsetDate.copy() as! NSDateFormatter
+    dateFormatter.timeZone = timeZone
+
+    return dateFormatter.stringFromDate(absoluteDateTime.nsdate) + " \(timeZone.name)"
+  }
+}
+
 extension OffsetDateTime: CustomStringConvertible {
   public var description: String {
     let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter
+    dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
+
+    return dateFormatter.stringFromDate(absoluteDateTime.nsdate)
+  }
+}
+
+extension OffsetDate: CustomStringConvertible {
+  public var description: String {
+    let dateFormatter = DateFormatters.offsetDate.copy() as! NSDateFormatter
     dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
 
     return dateFormatter.stringFromDate(absoluteDateTime.nsdate)

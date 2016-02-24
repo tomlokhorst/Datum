@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias OffsetInSeconds = Int
+
 public struct AbsoluteDateTime {
   internal let nsdate: NSDate
 }
@@ -30,14 +32,14 @@ public struct ZonedDate {
   internal let timeZone: NSTimeZone
 }
 
-public struct OffsetDate {
-  internal let absoluteDateTime: AbsoluteDateTime
-  internal let utcOffset: NSTimeInterval
-}
-
 public struct OffsetDateTime {
   internal let absoluteDateTime: AbsoluteDateTime
-  internal let utcOffset: NSTimeInterval
+  internal let utcOffset: OffsetInSeconds
+}
+
+public struct OffsetDate {
+  internal let absoluteDateTime: AbsoluteDateTime
+  internal let utcOffset: OffsetInSeconds
 }
 
 public enum HammerTime {

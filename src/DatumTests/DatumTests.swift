@@ -57,7 +57,7 @@ class DatumTests: XCTestCase {
     print("Brisbane   \(rdt.zonedDateTimeFor(timeZone: brisbane))")
     print("New York   \(rdt.zonedDateTimeFor(timeZone: newyork))")
     print("Hawaii     \(rdt.zonedDateTimeFor(timeZone: hawaii))")
-    print("15mins     \(rdt.offsetDateTimeFor(utcOffset: NSTimeInterval(15 * 60)))")
+    print("15mins     \(rdt.offsetDateTimeFor(utcOffset: 15 * 60))")
 
 
     let inauguration = RelativeDateTime.parse("2013-04-30T14:30:00")!.zonedDateTimeFor(timeZone: amsterdam)
