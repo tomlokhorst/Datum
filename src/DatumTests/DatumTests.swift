@@ -12,6 +12,14 @@ import Datum
 
 class DatumTests: XCTestCase {
 
+  func test_add_RelativeDate_and_RelativeTime_simple() {
+    let date = RelativeDate.parse("2016-02-25")!
+    let time = RelativeTime.parse("19:11:42")!
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42")
+  }
+
   func testTimeOfDay() {
 
     let formatter = NSDateFormatter()

@@ -18,6 +18,8 @@
 		E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */; };
 		E2C0968B1C7EDE0C00348BDE /* Types+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968A1C7EDE0C00348BDE /* Types+Extensions.swift */; };
 		E2C0968D1C7EE10000348BDE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968C1C7EE10000348BDE /* Protocols.swift */; };
+		E2C0968F1C7F714A00348BDE /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968E1C7F714A00348BDE /* Initializers.swift */; };
+		E2C096921C7F7B5F00348BDE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C096911C7F7B5F00348BDE /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Extensions.swift"; sourceTree = "<group>"; };
 		E2C0968A1C7EDE0C00348BDE /* Types+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Types+Extensions.swift"; sourceTree = "<group>"; };
 		E2C0968C1C7EE10000348BDE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		E2C0968E1C7F714A00348BDE /* Initializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
+		E2C096911C7F7B5F00348BDE /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 			children = (
 				E26D9F801B224B2A004DD11D /* Converters.swift */,
 				E26D9F821B2356BE004DD11D /* DateFormatters.swift */,
+				E2C0968E1C7F714A00348BDE /* Initializers.swift */,
 				E26D9F7E1B224B1F004DD11D /* Parsers.swift */,
 				E26D9F851B2357C8004DD11D /* Printers.swift */,
 				E2C0968C1C7EE10000348BDE /* Protocols.swift */,
@@ -109,6 +114,7 @@
 		E280DA5E1B22421700B5842F /* Datum */ = {
 			isa = PBXGroup;
 			children = (
+				E2C096901C7F7B5600348BDE /* Internal */,
 				E23D88631B8BAC9E0065BFF0 /* Extensions */,
 				E26D9F841B2356D4004DD11D /* Code */,
 				E280DA5F1B22421700B5842F /* Supporting Files */,
@@ -140,6 +146,14 @@
 				E280DA6D1B22421700B5842F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2C096901C7F7B5600348BDE /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				E2C096911C7F7B5F00348BDE /* Constants.swift */,
+			);
+			name = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +270,10 @@
 				E26D9F861B2357C8004DD11D /* Printers.swift in Sources */,
 				E26D9F7F1B224B1F004DD11D /* Parsers.swift in Sources */,
 				E280DA791B22427100B5842F /* Types.swift in Sources */,
+				E2C096921C7F7B5F00348BDE /* Constants.swift in Sources */,
 				E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */,
 				E26D9F811B224B2A004DD11D /* Converters.swift in Sources */,
+				E2C0968F1C7F714A00348BDE /* Initializers.swift in Sources */,
 				E2C0968D1C7EE10000348BDE /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

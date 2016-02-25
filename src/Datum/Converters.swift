@@ -8,12 +8,10 @@
 
 import Foundation
 
-private let utc = NSTimeZone(name: "UTC")!
-
 extension RelativeDateTime {
   public var date: RelativeDate {
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let components = calendar.componentsInTimeZone(utc, fromDate: nsdate)
+    let calendar = NSCalendar(timeZone: utcTimeZone)
+    let components = calendar.componentsInTimeZone(utcTimeZone, fromDate: nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
@@ -29,7 +27,7 @@ extension RelativeDateTime {
   }
 
   public var zonedDateTimeForUTC: ZonedDateTime {
-    return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: nsdate), timeZone: utc)
+    return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: nsdate), timeZone: utcTimeZone)
   }
 
   public func offsetDateTimeFor(utcOffset utcOffset: OffsetInSeconds) -> OffsetDateTime {
@@ -50,11 +48,8 @@ extension RelativeDate {
   }
 
   public func withTime(relativeTime: RelativeTime) -> RelativeDateTime {
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    calendar.timeZone = utc
-
-    let dateComponents = calendar.components([.Year, .Month, .Day], fromDate: self.nsdate)
-    let timeComponents = calendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
+    let dateComponents = utcCalendar.components([.Year, .Month, .Day], fromDate: self.nsdate)
+    let timeComponents = utcCalendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
 
     // NOTE: This only works with positive times
     // This wraps after 24 hours, and ignores DST
@@ -66,7 +61,7 @@ extension RelativeDate {
     dateComponents.nanosecond = timeComponents.nanosecond
 
     // NOTE: completely untested
-    let resultDate = calendar.dateFromComponents(timeComponents)!
+    let resultDate = utcCalendar.dateFromComponents(dateComponents)!
 
     return RelativeDateTime(nsdate: resultDate)
   }
@@ -111,11 +106,8 @@ extension ZonedDate {
   }
 
   public func withTime(relativeTime: RelativeTime) -> ZonedDateTime {
-    let dateCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    dateCalendar.timeZone = timeZone
-
-    let timeCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    timeCalendar.timeZone = utc
+    let dateCalendar = NSCalendar(timeZone: timeZone)
+    let timeCalendar = utcCalendar
 
     let dateComponents = dateCalendar.components([.Year, .Month, .Day], fromDate: absoluteDateTime.nsdate)
     let timeComponents = timeCalendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
@@ -130,7 +122,7 @@ extension ZonedDate {
     dateComponents.nanosecond = timeComponents.nanosecond
 
     // NOTE: completely untested
-    let resultDate = dateCalendar.dateFromComponents(timeComponents)!
+    let resultDate = dateCalendar.dateFromComponents(dateComponents)!
 
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
   }
