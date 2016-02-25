@@ -5,9 +5,12 @@ _2015-08-24: This project is in the early concept stage, it is not production re
 
 > Datum makes dealing with timezone information explicit.
 
-There are three types of dates that Datum handles:
+There are four types of dates that Datum handles:
 
 ### Absolute dates: `AbsoluteDateTime`
+
+> Example of AbsoluteDateTime: "2016-02-25T18:11:42Z"
+
 This date+time is absolute all over the world, no matter what timezone is used for display.
 This is often also called "UTC time", because that's the same for everyone all over the world.
 
@@ -22,6 +25,8 @@ print("Ten minutes from now: \(tenMinutesFromNow)")
 
 ### Relative dates: `RelativeDate` / `RelativeDateTime` / `RelativeTime`
 
+> Example of RelativeDate: "2016-02-25"
+
 This date (or date+time, or time) is not related to a specific timezone.
 It is an abstract concept, rather than related to a specific point in time.
 
@@ -34,6 +39,8 @@ let christmas = RelativeDate.parse("2015-12-25")!
 
 
 ### Zoned dates: `ZonedDateTime` / `ZonedDate`
+
+> Example of ZonedDateTime: "2016-02-25T19:11:42+01:00 Europe/Amsterdam"
 
 This date+time (or date) is specific to a particular timezone.
 Often these are times of events that happen at a particular location.
@@ -50,6 +57,8 @@ let inauguration = ZonedDateTime.parse("2013-04-30T14:30:00", timeZone: "Europe/
 
 
 ### Offset dates: `OffsetDateTime` / `OffsetDate`
+
+> Example of OffsetDate: "2016-02-25+01:00"
 
 This date+time (or date) is specific to a particular UTC offset.
 It is more useful to known a timezone instead of UTC offset (ZonedDateTime), but sometimes the origin timezone is not known.
