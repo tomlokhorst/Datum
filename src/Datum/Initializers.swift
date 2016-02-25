@@ -60,6 +60,11 @@ extension ZonedDateTime {
   public init(relativeDateTime: RelativeDateTime, timeZone: NSTimeZone) {
     self = relativeDateTime.zonedDateTimeFor(timeZone: timeZone)
   }
+
+  public init(dateInUTC: NSDate, withTimeZone timeZone: NSTimeZone) {
+    self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
+    self.timeZone = timeZone
+  }
 }
 
 extension ZonedDate {
@@ -71,6 +76,11 @@ extension ZonedDate {
 extension OffsetDateTime {
   public init(relativeDateTime: RelativeDateTime, utcOffset: OffsetInSeconds) {
     self = relativeDateTime.offsetDateTimeFor(utcOffset: utcOffset)
+  }
+
+  public init(dateInUTC: NSDate, withUTCOffset utcOffset: OffsetInSeconds) {
+    self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
+    self.utcOffset = utcOffset
   }
 }
 
