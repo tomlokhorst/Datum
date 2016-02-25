@@ -38,6 +38,16 @@ public func ==(lhs: RelativeDate, rhs: RelativeDate) -> Bool {
   return lhs.nsdate.isEqualToDate(rhs.nsdate)
 }
 
+extension RelativeTime : Hashable {
+  public var hashValue: Int {
+    return nsdate.hashValue
+  }
+}
+
+public func ==(lhs: RelativeTime, rhs: RelativeTime) -> Bool {
+  return lhs.nsdate.isEqualToDate(rhs.nsdate)
+}
+
 extension ZonedDateTime : Hashable {
   public var hashValue: Int {
     return (31 &* absoluteDateTime.nsdate.hashValue) &+ timeZone.hashValue
