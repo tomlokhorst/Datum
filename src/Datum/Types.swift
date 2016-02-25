@@ -28,22 +28,22 @@ public struct RelativeTime {
 
 public struct ZonedDateTime {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
-  internal let timeZone: NSTimeZone
+  public let timeZone: NSTimeZone
 }
 
 public struct ZonedDate {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
-  internal let timeZone: NSTimeZone
+  public let timeZone: NSTimeZone
 }
 
 public struct OffsetDateTime {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
-  internal let utcOffset: OffsetInSeconds
+  public let utcOffset: OffsetInSeconds
 }
 
 public struct OffsetDate {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
-  internal let utcOffset: OffsetInSeconds
+  public let utcOffset: OffsetInSeconds
 }
 
 public enum HammerTime {
