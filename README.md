@@ -7,23 +7,22 @@ _2015-08-24: This project is in the early concept stage, it is not production re
 
 There are three types of dates that Datum handles:
 
-### Absolute dates: `NSDate`
-This date+time is absolute all over the world, no matter what timezone is used for display:
+### Absolute dates: `AbsoluteDateTime`
+This date+time is absolute all over the world, no matter what timezone is used for display.
+This is often also called "UTC time", because that's the same for everyone all over the world.
 
-Example, the time 10 minutes from now. We display the date in the user's timezone:
+Example, the time 10 minutes from now.
 
 ```swift
-let tenMinutesFromNow = NSDate().dateByAddingTimeInterval(NSTimeInterval(10 * 60))
+let tenMinutesFromNow = AbsoluteDateTime(dateInUTC: NSDate().dateByAddingTimeInterval(NSTimeInterval(10 * 60)))
 
-let formatter = NSDateFormatter()
-formatter.timeStyle = NSDateFormatterStyle.FullStyle
-print("Ten minutes from now: \(formatter.stringFromDate(tenMinutesFromNow))")
+print("Ten minutes from now: \(tenMinutesFromNow)")
 ```
 
 
-### Relative dates: `RelativeDate` / `RelativeDateTime`
+### Relative dates: `RelativeDate` / `RelativeDateTime` / `RelativeTime`
 
-This date (or date+time) is not related to a specific timezone.
+This date (or date+time, or time) is not related to a specific timezone.
 It is an abstract concept, rather than related to a specific point in time.
 
 Example, Chrismas 2015 is on December 25th (which is a Friday).
@@ -34,23 +33,32 @@ let christmas = RelativeDate.parse("2015-12-25")!
 ```
 
 
-### Local dates: `LocalDateTime`
+### Zoned dates: `ZonedDateTime` / `ZonedDate`
 
-This date+time is specific to a particular timezone.
+This date+time (or date) is specific to a particular timezone.
 Often these are times of events that happen at a particular location.
 
 For example, King Willem-Alexander of The Netherlands was inauguratated April 30th at 14:30 in Amsterdam.
 At that sepecific point in time, it already was May 1st in New Zealand.
 
-However when we show that date to someone in New Zealand, we still want to show the date of the inauguration as April 30th. Because that was the date in Amsterdam where the event took place.
+However when we show that date to someone in New Zealand, we still we often want to show the date of the inauguration as April 30th.
+Because that was the date in Amsterdam where the event took place.
 
 ```swift
-let inauguration = LocalDateTime.parse("2013-04-30T14:30:00+02:00")!
+let inauguration = ZonedDateTime.parse("2013-04-30T14:30:00", timeZone: "Europe/Amsterdam")!
+```
 
-// Print dayname + date for event in Amsterdam timezone, regardless of device timezone
-let formatter = NSDateFormatter()
-formatter.dateStyle = NSDateFormatterStyle.FullStyle
-print("The inauguration took place on \(formatter.stringFromLocalDateTime(inauguration))")
+
+### Offset dates: `OffsetDateTime` / `OffsetDate`
+
+This date+time (or date) is specific to a particular UTC offset.
+It is more useful to known a timezone instead of UTC offset (ZonedDateTime), but sometimes the origin timezone is not known.
+
+In the previous example of the inaugoration of the dutch king, had we not known the Amsterdam timezone, we might have used the UTC offset.
+
+```swift
+// Amsterdam was in Daylight Savings Time, with a UTC offset of +2 hours on April 30, 2013
+let inauguration = OffsetDateTime.parse("2013-04-30T14:30:00+02:00")!
 ```
 
 
@@ -69,12 +77,14 @@ let rdt = RelativeDateTime.parse(str)!
 // Lookup Amsterdam timezone in OS database
 let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
 
-// Convert unspecific RelativeDateTime to specific LocalDateTime
-let ldt = rdt.localDateTimeFor(timezone: amsterdam)
+// Convert unspecific RelativeDateTime to specific ZonedDateTime
+let zdt = rdt.zonedDateTimeFor(timezone: amsterdam)
 
 // Now render date in system the system timezone, using format from user preferences
 let formatter = NSDateFormatter()
 formatter.dateStyle = NSDateFormatterStyle.MediumStyle
 formatter.timeStyle = NSDateFormatterStyle.MediumStyle
-let displayString = formatter.stringFromDate(ldt.absoluteDateTime)
+
+let displayString = formatter.stringFromDate(zdt.instant)
 ```
+
