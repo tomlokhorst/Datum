@@ -17,6 +17,17 @@ extension NSCalendar {
     self.init(calendarIdentifier: NSCalendarIdentifierGregorian)!
     self.timeZone = timeZone
   }
+
+  internal func componentsFrom(relativeTime relativeTime: RelativeTime) -> NSDateComponents {
+    let components = self.components([.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
+
+    // Subtract default Jan 1, 2000
+    components.year -= 2000
+    components.month -= 1
+    components.day -= 1
+
+    return components
+  }
 }
 
 extension NSDateComponents {

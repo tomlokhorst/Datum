@@ -48,20 +48,8 @@ extension RelativeDate {
   }
 
   public func withTime(relativeTime: RelativeTime) -> RelativeDateTime {
-    let dateComponents = utcCalendar.components([.Year, .Month, .Day], fromDate: self.nsdate)
-    let timeComponents = utcCalendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
-
-    // NOTE: This only works with positive times
-    // This wraps after 24 hours, and ignores DST
-    //
-    // TODO: Make this better
-    dateComponents.hour = timeComponents.hour
-    dateComponents.minute = timeComponents.minute
-    dateComponents.second = timeComponents.second
-    dateComponents.nanosecond = timeComponents.nanosecond
-
-    // NOTE: completely untested
-    let resultDate = utcCalendar.dateFromComponents(dateComponents)!
+    let timeComponents = utcCalendar.componentsFrom(relativeTime: relativeTime)
+    let resultDate = utcCalendar.dateByAddingComponents(timeComponents, toDate: self.nsdate, options: [])!
 
     return RelativeDateTime(nsdate: resultDate)
   }
@@ -106,23 +94,8 @@ extension ZonedDate {
   }
 
   public func withTime(relativeTime: RelativeTime) -> ZonedDateTime {
-    let dateCalendar = NSCalendar(timeZone: timeZone)
-    let timeCalendar = utcCalendar
-
-    let dateComponents = dateCalendar.components([.Year, .Month, .Day], fromDate: absoluteDateTime.nsdate)
-    let timeComponents = timeCalendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
-
-    // NOTE: This only works with positive times
-    // This wraps after 24 hours, and ignores DST
-    //
-    // TODO: Make this better
-    dateComponents.hour = timeComponents.hour
-    dateComponents.minute = timeComponents.minute
-    dateComponents.second = timeComponents.second
-    dateComponents.nanosecond = timeComponents.nanosecond
-
-    // NOTE: completely untested
-    let resultDate = dateCalendar.dateFromComponents(dateComponents)!
+    let timeComponents = utcCalendar.componentsFrom(relativeTime: relativeTime)
+    let resultDate = utcCalendar.dateByAddingComponents(timeComponents, toDate: self.absoluteDateTime.nsdate, options: [])!
 
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
   }
@@ -150,5 +123,12 @@ extension OffsetDateTime {
 extension OffsetDate {
   public var midnight: OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
+  }
+
+  public func withTime(relativeTime: RelativeTime) -> OffsetDateTime {
+    let timeComponents = utcCalendar.componentsFrom(relativeTime: relativeTime)
+    let resultDate = utcCalendar.dateByAddingComponents(timeComponents, toDate: self.absoluteDateTime.nsdate, options: [])!
+
+    return OffsetDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), utcOffset: utcOffset)
   }
 }

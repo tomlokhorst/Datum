@@ -40,6 +40,9 @@ extension RelativeDate {
 }
 
 extension RelativeTime {
+  // Note: Should we disallow negative hours/minute/second?
+  // Or hours > 24 (maybe leap seconds?)
+  // RelativeTime should not be a Duration or Interval
   public init(hour: Int, minute: Int, second: Int) {
     let components = NSDateComponents(timeZone: utcTimeZone)
     components.year = 2000
@@ -50,5 +53,29 @@ extension RelativeTime {
     components.second = second
 
     self.nsdate = utcCalendar.dateFromComponents(components)!
+  }
+}
+
+extension ZonedDateTime {
+  public init(relativeDateTime: RelativeDateTime, timeZone: NSTimeZone) {
+    self = relativeDateTime.zonedDateTimeFor(timeZone: timeZone)
+  }
+}
+
+extension ZonedDate {
+  public init(relativeDate: RelativeDate, timeZone: NSTimeZone) {
+    self = relativeDate.zonedDateFor(timeZone: timeZone)
+  }
+}
+
+extension OffsetDateTime {
+  public init(relativeDateTime: RelativeDateTime, utcOffset: OffsetInSeconds) {
+    self = relativeDateTime.offsetDateTimeFor(utcOffset: utcOffset)
+  }
+}
+
+extension OffsetDate {
+  public init(relativeDate: RelativeDate, utcOffset: OffsetInSeconds) {
+    self = relativeDate.offsetDateFor(utcOffset: utcOffset)
   }
 }

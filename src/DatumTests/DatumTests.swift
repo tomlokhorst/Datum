@@ -10,6 +10,15 @@ import UIKit
 import XCTest
 import Datum
 
+
+let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
+let london = NSTimeZone(name: "Europe/London")!
+let athens = NSTimeZone(name: "Europe/Athens")!
+let sydney = NSTimeZone(name: "Australia/Sydney")!
+let brisbane = NSTimeZone(name: "Australia/Brisbane")!
+let newyork = NSTimeZone(name: "America/New_York")!
+let hawaii = NSTimeZone(name: "US/Hawaii")!
+
 class DatumTests: XCTestCase {
 
   func test_add_RelativeDate_and_RelativeTime_simple() {
@@ -18,6 +27,70 @@ class DatumTests: XCTestCase {
 
     let dateTime = date.withTime(time)
     XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42")
+  }
+
+  func test_add_RelativeDate_and_RelativeTime_overflow_positive_day() {
+    let date = RelativeDate.parse("2016-02-25")!
+    let time = RelativeTime(hour: 24, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42")
+  }
+
+  func test_add_RelativeDate_and_RelativeTime_overflow_negative_day() {
+    let date = RelativeDate.parse("2016-02-25")!
+    let time = RelativeTime(hour: -1, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42")
+  }
+
+  func test_add_ZonedDate_and_RelativeTime_simple() {
+    let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
+    let time = RelativeTime.parse("19:11:42")!
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42+02:00 Europe/Athens")
+  }
+
+  func test_add_ZonedDate_and_RelativeTime_overflow_positive_day() {
+    let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
+    let time = RelativeTime(hour: 24, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42+02:00 Europe/Athens")
+  }
+
+  func test_add_ZonedDate_and_RelativeTime_overflow_negative_day() {
+    let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
+    let time = RelativeTime(hour: -1, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42+02:00 Europe/Athens")
+  }
+
+  func test_add_OffsetDate_and_RelativeTime_simple() {
+    let date = OffsetDate.parse("2016-02-25-13:00")!
+    let time = RelativeTime.parse("19:11:42")!
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42-13:00")
+  }
+
+  func test_add_OffsetDate_and_RelativeTime_overflow_positive_day() {
+    let date = OffsetDate.parse("2016-02-25-13:00")!
+    let time = RelativeTime(hour: 24, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42-13:00")
+  }
+
+  func test_add_OffsetDate_and_RelativeTime_overflow_negative_day() {
+    let date = OffsetDate.parse("2016-02-25-13:00")!
+    let time = RelativeTime(hour: -1, minute: 11, second: 42)
+
+    let dateTime = date.withTime(time)
+    XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42-13:00")
   }
 
   func testTimeOfDay() {
@@ -60,12 +133,6 @@ class DatumTests: XCTestCase {
 //    print(NSCalendar.currentCalendar().calendarIdentifier)
 //    print(NSTimeZone.knownTimeZoneNames())
 //    print(NSLocale.availableLocaleIdentifiers())
-
-    let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
-    let sydney = NSTimeZone(name: "Australia/Sydney")!
-    let brisbane = NSTimeZone(name: "Australia/Brisbane")!
-    let newyork = NSTimeZone(name: "America/New_York")!
-    let hawaii = NSTimeZone(name: "US/Hawaii")!
 
     let rdt = RelativeDateTime.parse("2013-04-30T14:30:00")!
     print("Relative   \(rdt)")

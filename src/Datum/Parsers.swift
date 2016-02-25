@@ -52,6 +52,19 @@ extension ZonedDateTime {
   }
 }
 
+extension ZonedDate {
+  public static func parse(string: String, timeZoneName: String) -> ZonedDate? {
+    guard let
+      relativeDate = RelativeDate.parse(string),
+      timeZone = NSTimeZone(name: timeZoneName)
+    else {
+      return nil
+    }
+
+    return ZonedDate(absoluteDateTime: AbsoluteDateTime(nsdate: relativeDate.nsdate), timeZone: timeZone)
+  }
+}
+
 extension OffsetDateTime {
   public static func parse(string: String) -> OffsetDateTime? {
     guard let date = DateFormatters.offsetDateTime.dateFromString(string) else {
@@ -66,5 +79,22 @@ extension OffsetDateTime {
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
+  }
+}
+
+extension OffsetDate {
+  public static func parse(string: String) -> OffsetDate? {
+    guard let date = DateFormatters.offsetDate.dateFromString(string) else {
+      return nil
+    }
+
+    let start = string.startIndex.advancedBy(10)
+    let end = start.advancedBy(6)
+    let abbr = string.substringWithRange(Range(start: start, end: end))
+    let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
+
+    let absoluteDateTime = AbsoluteDateTime(nsdate: date)
+
+    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
   }
 }
