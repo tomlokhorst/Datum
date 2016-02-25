@@ -49,6 +49,28 @@ extension RelativeDate {
     return RelativeDateTime(nsdate: nsdate)
   }
 
+  public func withTime(relativeTime: RelativeTime) -> RelativeDateTime {
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    calendar.timeZone = utc
+
+    let dateComponents = calendar.components([.Year, .Month, .Day], fromDate: self.nsdate)
+    let timeComponents = calendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
+
+    // NOTE: This only works with positive times
+    // This wraps after 24 hours, and ignores DST
+    //
+    // TODO: Make this better
+    dateComponents.hour = timeComponents.hour
+    dateComponents.minute = timeComponents.minute
+    dateComponents.second = timeComponents.second
+    dateComponents.nanosecond = timeComponents.nanosecond
+
+    // NOTE: completely untested
+    let resultDate = calendar.dateFromComponents(timeComponents)!
+
+    return RelativeDateTime(nsdate: resultDate)
+  }
+
   public func zonedDateFor(timeZone timeZone: NSTimeZone) -> ZonedDate {
     return midnight.zonedDateTimeFor(timeZone: timeZone).date
   }
@@ -86,6 +108,31 @@ extension ZonedDateTime {
 extension ZonedDate {
   public var midnight: ZonedDateTime {
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
+  }
+
+  public func withTime(relativeTime: RelativeTime) -> ZonedDateTime {
+    let dateCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    dateCalendar.timeZone = timeZone
+
+    let timeCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    timeCalendar.timeZone = utc
+
+    let dateComponents = dateCalendar.components([.Year, .Month, .Day], fromDate: absoluteDateTime.nsdate)
+    let timeComponents = timeCalendar.components([.Hour, .Minute, .Second, .Nanosecond], fromDate: relativeTime.nsdate)
+
+    // NOTE: This only works with positive times
+    // This wraps after 24 hours, and ignores DST
+    //
+    // TODO: Make this better
+    dateComponents.hour = timeComponents.hour
+    dateComponents.minute = timeComponents.minute
+    dateComponents.second = timeComponents.second
+    dateComponents.nanosecond = timeComponents.nanosecond
+
+    // NOTE: completely untested
+    let resultDate = dateCalendar.dateFromComponents(timeComponents)!
+
+    return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
   }
 
   public var offsetDate: OffsetDate {

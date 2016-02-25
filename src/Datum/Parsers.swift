@@ -29,6 +29,16 @@ extension RelativeDate {
   }
 }
 
+extension RelativeTime {
+  public static func parse(string: String) -> RelativeTime? {
+    guard let date = DateFormatters.relativeTime.dateFromString(string) else {
+      return nil
+    }
+
+    return RelativeTime(nsdate: date)
+  }
+}
+
 extension ZonedDateTime {
   public static func parse(string: String, timeZoneName: String) -> ZonedDateTime? {
     guard let

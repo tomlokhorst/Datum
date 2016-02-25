@@ -12,6 +12,17 @@ import Datum
 
 class DatumTests: XCTestCase {
 
+  func testTimeOfDay() {
+
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "HH:mm:ssZZZZZ"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(name: "UTC")
+
+    let str = "00:45:32+01:00"
+    print(formatter.dateFromString(str))
+  }
+
   func testChristmas() {
     let london = NSTimeZone(name: "Europe/London")!
 

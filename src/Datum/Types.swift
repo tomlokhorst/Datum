@@ -22,6 +22,10 @@ public struct RelativeDate {
   internal let nsdate: NSDate // Invariant: Should be midnight UTC
 }
 
+public struct RelativeTime {
+  internal let nsdate: NSDate // Invariant: Time based on default day of Jan 1, 2000 UTC
+}
+
 public struct ZonedDateTime {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
   internal let timeZone: NSTimeZone

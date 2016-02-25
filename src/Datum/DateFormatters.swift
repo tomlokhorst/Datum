@@ -27,6 +27,15 @@ struct DateFormatters {
     return formatter
   }()
 
+  static let relativeTime: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "HH:mm:ss"
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(name: "UTC")
+
+    return formatter
+  }()
+
   static let offsetDateTime: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
