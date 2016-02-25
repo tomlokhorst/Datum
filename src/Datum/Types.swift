@@ -11,34 +11,34 @@ import Foundation
 public typealias OffsetInSeconds = Int
 
 public struct AbsoluteDateTime {
-  internal let nsdate: NSDate
+  internal let nsdate: NSDate // Invariant: Should be UTC
 }
 
 public struct RelativeDateTime {
-  internal let nsdate: NSDate
+  internal let nsdate: NSDate // Invariant: Should be UTC
 }
 
 public struct RelativeDate {
-  internal let nsdate: NSDate
+  internal let nsdate: NSDate // Invariant: Should be midnight UTC
 }
 
 public struct ZonedDateTime {
-  internal let absoluteDateTime: AbsoluteDateTime
+  internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
   internal let timeZone: NSTimeZone
 }
 
 public struct ZonedDate {
-  internal let absoluteDateTime: AbsoluteDateTime
+  internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
   internal let timeZone: NSTimeZone
 }
 
 public struct OffsetDateTime {
-  internal let absoluteDateTime: AbsoluteDateTime
+  internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
   internal let utcOffset: OffsetInSeconds
 }
 
 public struct OffsetDate {
-  internal let absoluteDateTime: AbsoluteDateTime
+  internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
   internal let utcOffset: OffsetInSeconds
 }
 
