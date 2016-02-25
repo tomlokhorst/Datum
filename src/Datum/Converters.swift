@@ -83,6 +83,10 @@ extension ZonedDateTime {
     return ZonedDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), timeZone: timeZone)
   }
 
+  public func withTimeZone(timeZone: NSTimeZone) -> ZonedDateTime {
+    return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
+  }
+
   public var offsetDateTime: OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
   }
@@ -98,6 +102,10 @@ extension ZonedDate {
     let resultDate = utcCalendar.dateByAddingComponents(timeComponents, toDate: self.absoluteDateTime.nsdate, options: [])!
 
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
+  }
+
+  public func withTimeZone(timeZone: NSTimeZone) -> ZonedDate {
+    return ZonedDate(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public var offsetDate: OffsetDate {
@@ -118,6 +126,10 @@ extension OffsetDateTime {
 
     return OffsetDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), utcOffset: utcOffset)
   }
+
+  public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDateTime {
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
+  }
 }
 
 extension OffsetDate {
@@ -130,5 +142,9 @@ extension OffsetDate {
     let resultDate = utcCalendar.dateByAddingComponents(timeComponents, toDate: self.absoluteDateTime.nsdate, options: [])!
 
     return OffsetDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), utcOffset: utcOffset)
+  }
+
+  public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDate {
+    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 }
