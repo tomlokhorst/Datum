@@ -39,7 +39,7 @@ This date+time (or date) is specific to a particular timezone.
 Often these are times of events that happen at a particular location.
 
 For example, King Willem-Alexander of The Netherlands was inauguratated April 30th at 14:30 in Amsterdam.
-At that sepecific point in time, it already was May 1st in New Zealand.
+At that specific point in time, it already was May 1st in New Zealand.
 
 However when we show that date to someone in New Zealand, we still we often want to show the date of the inauguration as April 30th.
 Because that was the date in Amsterdam where the event took place.
