@@ -67,13 +67,9 @@ extension RelativeDate {
 }
 
 extension ZonedDateTime {
-  public var nsdate: NSDate {
-    return absoluteDateTime.nsdate
-  }
-
   public var date: ZonedDate {
     let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let components = calendar.componentsInTimeZone(timeZone, fromDate: nsdate)
+    let components = calendar.componentsInTimeZone(timeZone, fromDate: absoluteDateTime.nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
@@ -98,15 +94,11 @@ extension ZonedDate {
 }
 
 extension OffsetDateTime {
-  public var nsdate: NSDate {
-    return absoluteDateTime.nsdate
-  }
-
   public var date: OffsetDate {
     let timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
 
     let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let components = calendar.componentsInTimeZone(timeZone, fromDate: nsdate)
+    let components = calendar.componentsInTimeZone(timeZone, fromDate: absoluteDateTime.nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0

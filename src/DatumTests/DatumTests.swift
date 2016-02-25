@@ -31,9 +31,9 @@ class DatumTests: XCTestCase {
     let calendar = NSCalendar.currentCalendar()
     calendar.timeZone = london
 
-    print("Before: \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: before.nsdate))")
-    print("During: \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: during.nsdate))")
-    print("Still:  \(calendar.isDate(christmasDayInLondon.nsdate, inSameDayAsDate: still.nsdate))")
+    print("Before: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: before.instant))")
+    print("During: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: during.instant))")
+    print("Still:  \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: still.instant))")
 
   }
 
@@ -66,7 +66,7 @@ class DatumTests: XCTestCase {
     formatter.dateStyle = NSDateFormatterStyle.FullStyle
     formatter.locale = NSLocale(localeIdentifier: "en_NZ")
     formatter.timeZone = auckland
-    print("The inauguration took place on \(formatter.stringFromDate(inauguration.nsdate))")
+    print("The inauguration took place on \(formatter.stringFromDate(inauguration.instant))")
 
     XCTAssert(true, "Pass")
   }

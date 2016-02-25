@@ -40,12 +40,12 @@ public func ==(lhs: RelativeDate, rhs: RelativeDate) -> Bool {
 
 extension ZonedDateTime : Hashable {
   public var hashValue: Int {
-    return (31 &* nsdate.hashValue) &+ timeZone.hashValue
+    return (31 &* absoluteDateTime.nsdate.hashValue) &+ timeZone.hashValue
   }
 }
 
 public func ==(lhs: ZonedDateTime, rhs: ZonedDateTime) -> Bool {
-  return lhs.nsdate.isEqualToDate(rhs.nsdate) && lhs.timeZone.isEqualToTimeZone(rhs.timeZone)
+  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.timeZone.isEqualToTimeZone(rhs.timeZone)
 }
 
 extension ZonedDate : Hashable {
