@@ -93,6 +93,18 @@ class DatumTests: XCTestCase {
     XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42-13:00")
   }
 
+  func test_parse_OffsetDateTime_offset_with_colon() {
+    let dateTime = OffsetDateTime.parse("2016-02-25T19:11:42+01:00")!
+
+    XCTAssertEqual(dateTime.utcOffset, 1 * 60 * 60)
+  }
+
+  func test_parse_OffsetDateTime_offset_without_colon() {
+    let dateTime = OffsetDateTime.parse("2016-02-25T19:11:42+0100")!
+
+    XCTAssertEqual(dateTime.utcOffset, 1 * 60 * 60)
+  }
+
   func testTimeOfDay() {
 
     let formatter = NSDateFormatter()

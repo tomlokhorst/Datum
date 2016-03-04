@@ -72,7 +72,7 @@ extension OffsetDateTime {
     }
 
     let start = string.startIndex.advancedBy(19)
-    let end = start.advancedBy(6)
+    let end = string.endIndex
     let abbr = string.substringWithRange(Range(start: start, end: end))
     let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
 
@@ -89,7 +89,7 @@ extension OffsetDate {
     }
 
     let start = string.startIndex.advancedBy(10)
-    let end = start.advancedBy(6)
+    let end = string.endIndex
     let abbr = string.substringWithRange(Range(start: start, end: end))
     let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
 
