@@ -67,3 +67,23 @@ extension ZonedDate : Hashable {
 public func ==(lhs: ZonedDate, rhs: ZonedDate) -> Bool {
   return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.timeZone.isEqualToTimeZone(rhs.timeZone)
 }
+
+extension OffsetDateTime : Hashable {
+  public var hashValue: Int {
+    return (31 &* absoluteDateTime.nsdate.hashValue) &+ utcOffset.hashValue
+  }
+}
+
+public func ==(lhs: OffsetDateTime, rhs: OffsetDateTime) -> Bool {
+  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
+}
+
+extension OffsetDate : Hashable {
+  public var hashValue: Int {
+    return (31 &* absoluteDateTime.nsdate.hashValue) &+ utcOffset.hashValue
+  }
+}
+
+public func ==(lhs: OffsetDate, rhs: OffsetDate) -> Bool {
+  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
+}
