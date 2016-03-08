@@ -90,6 +90,12 @@ extension ZonedDateTime {
   public var offsetDateTime: OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
   }
+
+  public var relativeDateTimeWithoutTimeZone: RelativeDateTime {
+    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(timeZone.secondsFromGMT))
+
+    return RelativeDateTime(nsdate: date)
+  }
 }
 
 extension ZonedDate {
@@ -111,6 +117,12 @@ extension ZonedDate {
   public var offsetDate: OffsetDate {
     return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
   }
+
+  public var relativeDateWithoutTimeZone: RelativeDate {
+    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(timeZone.secondsFromGMT))
+
+    return RelativeDate(nsdate: date)
+  }
 }
 
 extension OffsetDateTime {
@@ -130,6 +142,12 @@ extension OffsetDateTime {
   public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
+
+  public var relativeDateTimeWithoutUTCOffset: RelativeDateTime {
+    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(utcOffset))
+
+    return RelativeDateTime(nsdate: date)
+  }
 }
 
 extension OffsetDate {
@@ -146,5 +164,11 @@ extension OffsetDate {
 
   public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDate {
     return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
+  }
+
+  public var relativeDateWithoutUTCOffset: RelativeDate {
+    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(utcOffset))
+
+    return RelativeDate(nsdate: date)
   }
 }

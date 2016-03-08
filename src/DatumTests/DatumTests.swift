@@ -105,6 +105,13 @@ class DatumTests: XCTestCase {
     XCTAssertEqual(dateTime.utcOffset, 1 * 60 * 60)
   }
 
+  func test_OffsetDateTime_to_RelativeDateTime() {
+    let dateTime = OffsetDateTime.parse("2016-02-25T00:11:42+0100")!
+    let relative = RelativeDateTime.parse("2016-02-25T00:11:42")!
+
+    XCTAssertEqual(dateTime.relativeDateTimeWithoutUTCOffset, relative)
+  }
+
   func testTimeOfDay() {
 
     let formatter = NSDateFormatter()
