@@ -27,6 +27,12 @@ extension RelativeDate: CustomStringConvertible {
   }
 }
 
+extension RelativeTime: CustomStringConvertible {
+  public var description: String {
+    return DateFormatters.relativeTime.stringFromDate(nsdate)
+  }
+}
+
 extension ZonedDateTime: CustomStringConvertible {
   public var description: String {
     let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter

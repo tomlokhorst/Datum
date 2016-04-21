@@ -112,6 +112,12 @@ class DatumTests: XCTestCase {
     XCTAssertEqual(dateTime.relativeDateTimeWithoutUTCOffset, relative)
   }
 
+  func test_parse_print_RelativeTime() {
+    let relativeTime = RelativeTime.parse("23:42:00")!
+
+    XCTAssertEqual(relativeTime.description, "23:42:00")
+  }
+
   func testTimeOfDay() {
 
     let formatter = NSDateFormatter()
