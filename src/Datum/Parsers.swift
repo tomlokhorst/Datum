@@ -35,7 +35,10 @@ extension RelativeTime {
       return nil
     }
 
-    return RelativeTime(nsdate: date)
+    let components = utcCalendar.components([.Hour, .Minute, .Second], fromDate: date)
+    components.calendar = utcCalendar
+
+    return RelativeTime(components: components)
   }
 }
 

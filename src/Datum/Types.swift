@@ -23,7 +23,7 @@ public struct RelativeDate {
 }
 
 public struct RelativeTime {
-  internal let nsdate: NSDate // Invariant: Time based on default day of Jan 1, 2000 UTC
+  internal let components: NSDateComponents
 }
 
 public struct ZonedDateTime {

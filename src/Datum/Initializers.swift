@@ -45,14 +45,11 @@ extension RelativeTime {
   // RelativeTime should not be a Duration or Interval
   public init(hour: Int, minute: Int, second: Int) {
     let components = NSDateComponents(timeZone: utcTimeZone)
-    components.year = 2000
-    components.month = 1
-    components.day = 1
     components.hour = hour
     components.minute = minute
     components.second = second
 
-    self.nsdate = utcCalendar.dateFromComponents(components)!
+    self.components = components
   }
 }
 

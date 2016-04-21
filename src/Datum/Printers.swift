@@ -29,7 +29,14 @@ extension RelativeDate: CustomStringConvertible {
 
 extension RelativeTime: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.relativeTime.stringFromDate(nsdate)
+    if components.calendar == nil {
+      fatalError("RelativeTime: components.calendar should be set")
+    }
+    guard let date = components.date else {
+      fatalError("RelativeTime: Can't compute date")
+    }
+
+    return DateFormatters.relativeTime.stringFromDate(date)
   }
 }
 
