@@ -42,6 +42,18 @@ extension RelativeTime : Hashable {
   public var hashValue: Int {
     return components.hashValue
   }
+
+  public var hour: Int {
+    return components.hour
+  }
+
+  public var minute: Int {
+    return components.minute
+  }
+
+  public var second: Int {
+    return components.second
+  }
 }
 
 public func ==(lhs: RelativeTime, rhs: RelativeTime) -> Bool {
