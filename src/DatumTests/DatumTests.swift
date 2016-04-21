@@ -113,11 +113,14 @@ class DatumTests: XCTestCase {
   }
 
   func test_parse_print_RelativeTime() {
-    let rt1 = RelativeTime.parse("23:42:00")!
-    let rt2 = RelativeTime(hour: 23, minute: 42, second: 0)
+    let rt1 = RelativeTime.parse("23:42:09")!
+    let rt2 = RelativeTime(hour: 23, minute: 42, second: 9)
 
     XCTAssertEqual(rt1, rt2)
-    XCTAssertEqual(rt1.description, "23:42:00")
+    XCTAssertEqual(rt1.hour, 23)
+    XCTAssertEqual(rt1.minute, 42)
+    XCTAssertEqual(rt1.second, 9)
+    XCTAssertEqual(rt1.description, "23:42:09")
   }
 
   func testTimeOfDay() {
@@ -194,7 +197,7 @@ class DatumTests: XCTestCase {
   func testPerformanceParse() {
     self.measureBlock() {
       let count = 1 // 10000
-      for (var i = 0; i < count; i++) {
+      for _ in 0 ..< count {
         RelativeDateTime.parse("2015-05-06T09:28:42")
       }
     }
