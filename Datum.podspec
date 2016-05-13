@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
   s.summary      = "Swift library for dealing with different date types."
 
   s.description  = <<-DESC
+                    Swift library for dealing with different date types.
                    DESC
 
   s.authors           = { "Tom Lokhorst" => "tom@lokhorst.eu" }
