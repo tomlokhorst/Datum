@@ -15,7 +15,7 @@ extension AbsoluteDateTime : Hashable {
 }
 
 public func ==(lhs: AbsoluteDateTime, rhs: AbsoluteDateTime) -> Bool {
-  return lhs.nsdate.isEqualToDate(rhs.nsdate)
+  return lhs.nsdate == rhs.nsdate
 }
 
 extension RelativeDateTime : Hashable {
@@ -25,7 +25,7 @@ extension RelativeDateTime : Hashable {
 }
 
 public func ==(lhs: RelativeDateTime, rhs: RelativeDateTime) -> Bool {
-  return lhs.nsdate.isEqualToDate(rhs.nsdate)
+  return lhs.nsdate == rhs.nsdate
 }
 
 extension RelativeDate : Hashable {
@@ -35,7 +35,7 @@ extension RelativeDate : Hashable {
 }
 
 public func ==(lhs: RelativeDate, rhs: RelativeDate) -> Bool {
-  return lhs.nsdate.isEqualToDate(rhs.nsdate)
+  return lhs.nsdate == rhs.nsdate
 }
 
 extension RelativeTime : Hashable {
@@ -44,15 +44,15 @@ extension RelativeTime : Hashable {
   }
 
   public var hour: Int {
-    return components.hour
+    return components.hour!
   }
 
   public var minute: Int {
-    return components.minute
+    return components.minute!
   }
 
   public var second: Int {
-    return components.second
+    return components.second!
   }
 }
 
@@ -69,7 +69,7 @@ extension ZonedDateTime : Hashable {
 }
 
 public func ==(lhs: ZonedDateTime, rhs: ZonedDateTime) -> Bool {
-  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.timeZone.isEqualToTimeZone(rhs.timeZone)
+  return (lhs.absoluteDateTime.nsdate == rhs.absoluteDateTime.nsdate) && (lhs.timeZone == rhs.timeZone)
 }
 
 extension ZonedDate : Hashable {
@@ -79,7 +79,7 @@ extension ZonedDate : Hashable {
 }
 
 public func ==(lhs: ZonedDate, rhs: ZonedDate) -> Bool {
-  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.timeZone.isEqualToTimeZone(rhs.timeZone)
+  return (lhs.absoluteDateTime.nsdate == rhs.absoluteDateTime.nsdate) && (lhs.timeZone == rhs.timeZone)
 }
 
 extension OffsetDateTime : Hashable {
@@ -89,7 +89,7 @@ extension OffsetDateTime : Hashable {
 }
 
 public func ==(lhs: OffsetDateTime, rhs: OffsetDateTime) -> Bool {
-  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
+  return (lhs.absoluteDateTime.nsdate == rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
 }
 
 extension OffsetDate : Hashable {
@@ -99,5 +99,5 @@ extension OffsetDate : Hashable {
 }
 
 public func ==(lhs: OffsetDate, rhs: OffsetDate) -> Bool {
-  return lhs.absoluteDateTime.nsdate.isEqualToDate(rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
+  return (lhs.absoluteDateTime.nsdate == rhs.absoluteDateTime.nsdate) && lhs.utcOffset == rhs.utcOffset
 }

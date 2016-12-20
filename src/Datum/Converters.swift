@@ -10,17 +10,18 @@ import Foundation
 
 extension RelativeDateTime {
   public var date: RelativeDate {
-    let calendar = NSCalendar(timeZone: utcTimeZone)
-    let components = calendar.componentsInTimeZone(utcTimeZone, fromDate: nsdate)
+    let calendar = Calendar(timeZone: utcTimeZone)
+    var components = calendar.dateComponents(in: utcTimeZone, from: nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
     components.nanosecond = 0
+
     return RelativeDate(nsdate: components.date!)
   }
 
-  public func zonedDateTimeFor(timeZone timeZone: NSTimeZone) -> ZonedDateTime {
-    let date = nsdate.dateByAddingTimeInterval(-NSTimeInterval(timeZone.secondsFromGMTForDate(nsdate)))
+  public func zonedDateTime(for timeZone: TimeZone) -> ZonedDateTime {
+    let date = nsdate.addingTimeInterval(-TimeInterval(timeZone.secondsFromGMT(for: nsdate)))
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
@@ -30,8 +31,8 @@ extension RelativeDateTime {
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: nsdate), timeZone: utcTimeZone)
   }
 
-  public func offsetDateTimeFor(utcOffset utcOffset: OffsetInSeconds) -> OffsetDateTime {
-    let date = nsdate.dateByAddingTimeInterval(-NSTimeInterval(utcOffset))
+  public func offsetDateTime(for utcOffset: OffsetInSeconds) -> OffsetDateTime {
+    let date = nsdate.addingTimeInterval(-TimeInterval(utcOffset))
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
@@ -47,22 +48,22 @@ extension RelativeDate {
     return RelativeDateTime(nsdate: nsdate)
   }
 
-  public func withTime(relativeTime: RelativeTime) -> RelativeDateTime {
-    let resultDate = utcCalendar.dateByAddingComponents(relativeTime.components, toDate: self.nsdate, options: [])!
+  public func withTime(_ relativeTime: RelativeTime) -> RelativeDateTime {
+    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: self.nsdate)!
 
     return RelativeDateTime(nsdate: resultDate)
   }
 
-  public func zonedDateFor(timeZone timeZone: NSTimeZone) -> ZonedDate {
-    return midnight.zonedDateTimeFor(timeZone: timeZone).date
+  public func zonedDate(for timeZone: TimeZone) -> ZonedDate {
+    return midnight.zonedDateTime(for: timeZone).date
   }
 
   public var zonedDateForUTC: ZonedDate {
     return midnight.zonedDateTimeForUTC.date
   }
 
-  public func offsetDateFor(utcOffset utcOffset: OffsetInSeconds) -> OffsetDate {
-    return midnight.offsetDateTimeFor(utcOffset: utcOffset).date
+  public func offsetDate(for utcOffset: OffsetInSeconds) -> OffsetDate {
+    return midnight.offsetDateTime(for: utcOffset).date
   }
 
   public var offsetDateForUTC: OffsetDate {
@@ -72,8 +73,8 @@ extension RelativeDate {
 
 extension ZonedDateTime {
   public var date: ZonedDate {
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let components = calendar.componentsInTimeZone(timeZone, fromDate: absoluteDateTime.nsdate)
+    let calendar = Calendar(identifier: .gregorian)
+    var components = calendar.dateComponents(in: timeZone, from: absoluteDateTime.nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
@@ -82,16 +83,16 @@ extension ZonedDateTime {
     return ZonedDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), timeZone: timeZone)
   }
 
-  public func withTimeZone(timeZone: NSTimeZone) -> ZonedDateTime {
+  public func withTimeZone(_ timeZone: TimeZone) -> ZonedDateTime {
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public var offsetDateTime: OffsetDateTime {
-    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
   }
 
   public var relativeDateTimeWithoutTimeZone: RelativeDateTime {
-    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(timeZone.secondsFromGMT))
+    let date = absoluteDateTime.nsdate.addingTimeInterval(TimeInterval(timeZone.secondsFromGMT()))
 
     return RelativeDateTime(nsdate: date)
   }
@@ -102,22 +103,22 @@ extension ZonedDate {
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
-  public func withTime(relativeTime: RelativeTime) -> ZonedDateTime {
-    let resultDate = utcCalendar.dateByAddingComponents(relativeTime.components, toDate: self.absoluteDateTime.nsdate, options: [])!
+  public func withTime(_ relativeTime: RelativeTime) -> ZonedDateTime {
+    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: absoluteDateTime.nsdate)!
 
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
   }
 
-  public func withTimeZone(timeZone: NSTimeZone) -> ZonedDate {
+  public func withTimeZone(_ timeZone: TimeZone) -> ZonedDate {
     return ZonedDate(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public var offsetDate: OffsetDate {
-    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
+    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
   }
 
   public var relativeDateWithoutTimeZone: RelativeDate {
-    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(timeZone.secondsFromGMT))
+    let date = absoluteDateTime.nsdate.addingTimeInterval(TimeInterval(timeZone.secondsFromGMT()))
 
     return RelativeDate(nsdate: date)
   }
@@ -125,10 +126,10 @@ extension ZonedDate {
 
 extension OffsetDateTime {
   public var date: OffsetDate {
-    let timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
+    let timeZone = TimeZone(secondsFromGMT: utcOffset)
 
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let components = calendar.componentsInTimeZone(timeZone, fromDate: absoluteDateTime.nsdate)
+    let calendar = Calendar(identifier: .gregorian)
+    var components = calendar.dateComponents(in: timeZone!, from: absoluteDateTime.nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
@@ -137,12 +138,12 @@ extension OffsetDateTime {
     return OffsetDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), utcOffset: utcOffset)
   }
 
-  public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDateTime {
+  public func withUTCOffset(_ utcOffset: OffsetInSeconds) -> OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 
   public var relativeDateTimeWithoutUTCOffset: RelativeDateTime {
-    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(utcOffset))
+    let date = absoluteDateTime.nsdate.addingTimeInterval(TimeInterval(utcOffset))
 
     return RelativeDateTime(nsdate: date)
   }
@@ -153,18 +154,18 @@ extension OffsetDate {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 
-  public func withTime(relativeTime: RelativeTime) -> OffsetDateTime {
-    let resultDate = utcCalendar.dateByAddingComponents(relativeTime.components, toDate: self.absoluteDateTime.nsdate, options: [])!
+  public func withTime(_ relativeTime: RelativeTime) -> OffsetDateTime {
+    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: absoluteDateTime.nsdate)!
 
     return OffsetDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), utcOffset: utcOffset)
   }
 
-  public func withUTCOffset(utcOffset: OffsetInSeconds) -> OffsetDate {
+  public func withUTCOffset(_ utcOffset: OffsetInSeconds) -> OffsetDate {
     return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 
   public var relativeDateWithoutUTCOffset: RelativeDate {
-    let date = absoluteDateTime.nsdate.dateByAddingTimeInterval(NSTimeInterval(utcOffset))
+    let date = absoluteDateTime.nsdate.addingTimeInterval(TimeInterval(utcOffset))
 
     return RelativeDate(nsdate: date)
   }

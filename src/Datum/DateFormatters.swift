@@ -9,48 +9,48 @@
 import Foundation
 
 struct DateFormatters {
-  static let relativeDateTime: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+  static let relativeDateTime: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     return formatter
   }()
 
-  static let relativeDate: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+  static let relativeDate: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     return formatter
   }()
 
-  static let relativeTime: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+  static let relativeTime: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "HH:mm:ss"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     return formatter
   }()
 
-  static let offsetDateTime: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+  static let offsetDateTime: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     return formatter
   }()
 
 
-  static let offsetDate: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+  static let offsetDate: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-ddZZZZZ"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     return formatter
   }()
