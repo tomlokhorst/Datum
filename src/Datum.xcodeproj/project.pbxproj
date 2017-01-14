@@ -15,7 +15,7 @@
 		E280DA681B22421700B5842F /* Datum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E280DA5C1B22421700B5842F /* Datum.framework */; };
 		E280DA6F1B22421700B5842F /* DatumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA6E1B22421700B5842F /* DatumTests.swift */; };
 		E280DA791B22427100B5842F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA781B22427100B5842F /* Types.swift */; };
-		E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */; };
+		E2C096891C7E12A300348BDE /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C096881C7E12A300348BDE /* Calendar+Extensions.swift */; };
 		E2C0968B1C7EDE0C00348BDE /* Types+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968A1C7EDE0C00348BDE /* Types+Extensions.swift */; };
 		E2C0968D1C7EE10000348BDE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968C1C7EE10000348BDE /* Protocols.swift */; };
 		E2C0968F1C7F714A00348BDE /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C0968E1C7F714A00348BDE /* Initializers.swift */; };
@@ -44,7 +44,7 @@
 		E280DA6D1B22421700B5842F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E280DA6E1B22421700B5842F /* DatumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatumTests.swift; sourceTree = "<group>"; };
 		E280DA781B22427100B5842F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Extensions.swift"; sourceTree = "<group>"; };
+		E2C096881C7E12A300348BDE /* Calendar+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
 		E2C0968A1C7EDE0C00348BDE /* Types+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Types+Extensions.swift"; sourceTree = "<group>"; };
 		E2C0968C1C7EE10000348BDE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		E2C0968E1C7F714A00348BDE /* Initializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		E23D88631B8BAC9E0065BFF0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E2C096881C7E12A300348BDE /* NSCalendar+Extensions.swift */,
+				E2C096881C7E12A300348BDE /* Calendar+Extensions.swift */,
 				E2C0968A1C7EDE0C00348BDE /* Types+Extensions.swift */,
 			);
 			name = Extensions;
@@ -214,14 +214,16 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = nonstrict;
 				TargetAttributes = {
 					E280DA5B1B22421700B5842F = {
 						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 0820;
 					};
 					E280DA661B22421700B5842F = {
 						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -271,7 +273,7 @@
 				E26D9F7F1B224B1F004DD11D /* Parsers.swift in Sources */,
 				E280DA791B22427100B5842F /* Types.swift in Sources */,
 				E2C096921C7F7B5F00348BDE /* Constants.swift in Sources */,
-				E2C096891C7E12A300348BDE /* NSCalendar+Extensions.swift in Sources */,
+				E2C096891C7E12A300348BDE /* Calendar+Extensions.swift in Sources */,
 				E26D9F811B224B2A004DD11D /* Converters.swift in Sources */,
 				E2C0968F1C7F714A00348BDE /* Initializers.swift in Sources */,
 				E2C0968D1C7EE10000348BDE /* Protocols.swift in Sources */,
@@ -310,8 +312,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -359,8 +363,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -380,6 +386,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -391,17 +398,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Datum/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nonstrict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -409,26 +418,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Datum/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nonstrict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		E280DA761B22421700B5842F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -437,20 +445,19 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nonstrict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		E280DA771B22421700B5842F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DatumTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nonstrict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

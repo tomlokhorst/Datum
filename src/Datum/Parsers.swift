@@ -10,8 +10,8 @@ import Foundation
 
 
 extension RelativeDateTime {
-  public static func parse(string: String) -> RelativeDateTime? {
-    guard let date = DateFormatters.relativeDateTime.dateFromString(string) else {
+  public static func parse(_ string: String) -> RelativeDateTime? {
+    guard let date = DateFormatters.relativeDateTime.date(from: string) else {
       return nil
     }
 
@@ -20,8 +20,8 @@ extension RelativeDateTime {
 }
 
 extension RelativeDate {
-  public static func parse(string: String) -> RelativeDate? {
-    guard let date = DateFormatters.relativeDate.dateFromString(string) else {
+  public static func parse(_ string: String) -> RelativeDate? {
+    guard let date = DateFormatters.relativeDate.date(from: string) else {
       return nil
     }
 
@@ -30,12 +30,12 @@ extension RelativeDate {
 }
 
 extension RelativeTime {
-  public static func parse(string: String) -> RelativeTime? {
-    guard let date = DateFormatters.relativeTime.dateFromString(string) else {
+  public static func parse(_ string: String) -> RelativeTime? {
+    guard let date = DateFormatters.relativeTime.date(from: string) else {
       return nil
     }
 
-    let components = utcCalendar.components([.Hour, .Minute, .Second], fromDate: date)
+    var components = utcCalendar.dateComponents([.hour, .minute, .second], from: date)
     components.calendar = utcCalendar
 
     return RelativeTime(components: components)
@@ -43,10 +43,10 @@ extension RelativeTime {
 }
 
 extension ZonedDateTime {
-  public static func parse(string: String, timeZoneName: String) -> ZonedDateTime? {
-    guard let
-      relativeDateTime = RelativeDateTime.parse(string),
-      timeZone = NSTimeZone(name: timeZoneName)
+  public static func parse(_ string: String, timeZoneName: String) -> ZonedDateTime? {
+    guard
+      let relativeDateTime = RelativeDateTime.parse(string),
+      let timeZone = TimeZone(identifier: timeZoneName)
     else {
       return nil
     }
@@ -56,10 +56,10 @@ extension ZonedDateTime {
 }
 
 extension ZonedDate {
-  public static func parse(string: String, timeZoneName: String) -> ZonedDate? {
-    guard let
-      relativeDate = RelativeDate.parse(string),
-      timeZone = NSTimeZone(name: timeZoneName)
+  public static func parse(_ string: String, timeZoneName: String) -> ZonedDate? {
+    guard
+      let relativeDate = RelativeDate.parse(string),
+      let timeZone = TimeZone(identifier: timeZoneName)
     else {
       return nil
     }
@@ -69,35 +69,35 @@ extension ZonedDate {
 }
 
 extension OffsetDateTime {
-  public static func parse(string: String) -> OffsetDateTime? {
-    guard let date = DateFormatters.offsetDateTime.dateFromString(string) else {
+  public static func parse(_ string: String) -> OffsetDateTime? {
+    guard let date = DateFormatters.offsetDateTime.date(from: string) else {
       return nil
     }
 
-    let start = string.startIndex.advancedBy(19)
+    let start = string.characters.index(string.startIndex, offsetBy: 19)
     let end = string.endIndex
-    let abbr = string.substringWithRange(start ..< end)
-    let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
+    let abbr = string.substring(with: start ..< end)
+    let timeZone = TimeZone(abbreviation: "UTC\(abbr)")!
 
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
-    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
   }
 }
 
 extension OffsetDate {
-  public static func parse(string: String) -> OffsetDate? {
-    guard let date = DateFormatters.offsetDate.dateFromString(string) else {
+  public static func parse(_ string: String) -> OffsetDate? {
+    guard let date = DateFormatters.offsetDate.date(from: string) else {
       return nil
     }
 
-    let start = string.startIndex.advancedBy(10)
+    let start = string.characters.index(string.startIndex, offsetBy: 10)
     let end = string.endIndex
-    let abbr = string.substringWithRange(start ..< end)
-    let timeZone = NSTimeZone(abbreviation: "UTC\(abbr)")!
+    let abbr = string.substring(with: start ..< end)
+    let timeZone = TimeZone(abbreviation: "UTC\(abbr)")!
 
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
-    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT)
+    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
   }
 }

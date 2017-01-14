@@ -8,19 +8,19 @@
 
 import Foundation
 
-internal let utcTimeZone = NSTimeZone(name: "UTC")!
-internal let utcCalendar = NSCalendar(timeZone: utcTimeZone)
+internal let utcTimeZone = TimeZone(identifier: "UTC")!
+internal let utcCalendar = Calendar(timeZone: utcTimeZone)
 
 
-extension NSCalendar {
-  internal convenience init(timeZone: NSTimeZone) {
-    self.init(calendarIdentifier: NSCalendarIdentifierGregorian)!
+extension Calendar {
+  internal init(timeZone: TimeZone) {
+    self.init(identifier: .gregorian)
     self.timeZone = timeZone
   }
 }
 
-extension NSDateComponents {
-  internal convenience init(timeZone: NSTimeZone) {
+extension DateComponents {
+  internal init(timeZone: TimeZone) {
     self.init()
     self.timeZone = timeZone
   }

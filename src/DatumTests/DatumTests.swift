@@ -11,13 +11,13 @@ import XCTest
 import Datum
 
 
-let amsterdam = NSTimeZone(name: "Europe/Amsterdam")!
-let london = NSTimeZone(name: "Europe/London")!
-let athens = NSTimeZone(name: "Europe/Athens")!
-let sydney = NSTimeZone(name: "Australia/Sydney")!
-let brisbane = NSTimeZone(name: "Australia/Brisbane")!
-let newyork = NSTimeZone(name: "America/New_York")!
-let hawaii = NSTimeZone(name: "US/Hawaii")!
+let amsterdam = TimeZone(identifier: "Europe/Amsterdam")!
+let london = TimeZone(identifier: "Europe/London")!
+let athens = TimeZone(identifier: "Europe/Athens")!
+let sydney = TimeZone(identifier: "Australia/Sydney")!
+let brisbane = TimeZone(identifier: "Australia/Brisbane")!
+let newyork = TimeZone(identifier: "America/New_York")!
+let hawaii = TimeZone(identifier: "US/Hawaii")!
 
 class DatumTests: XCTestCase {
 
@@ -125,17 +125,17 @@ class DatumTests: XCTestCase {
 
   func testTimeOfDay() {
 
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     formatter.dateFormat = "HH:mm:ssZZZZZ"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "UTC")
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(identifier: "UTC")
 
     let str = "00:45:32+01:00"
-    print(formatter.dateFromString(str))
+    print("\(formatter.date(from: str))")
   }
 
   func testChristmas() {
-    let london = NSTimeZone(name: "Europe/London")!
+    let london = TimeZone(identifier: "Europe/London")!
 
     // Already Christmas day in NL, not yet in UK
     let before = OffsetDateTime.parse("2016-12-25T00:30:00+01:00")!
@@ -148,14 +148,14 @@ class DatumTests: XCTestCase {
 
     let stringFromServer = "2016-12-25" // Note from server: date in London timzone
     let christmasDay = RelativeDate.parse(stringFromServer)!
-    let christmasDayInLondon = christmasDay.midnight.zonedDateTimeFor(timeZone: london)
+    let christmasDayInLondon = christmasDay.midnight.zonedDateTime(for: london)
 
-    let calendar = NSCalendar.currentCalendar()
+    var calendar = Calendar.current
     calendar.timeZone = london
 
-    print("Before: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: before.instant))")
-    print("During: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: during.instant))")
-    print("Still:  \(calendar.isDate(christmasDayInLondon.instant, inSameDayAsDate: still.instant))")
+    print("Before: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAs: before.instant))")
+    print("During: \(calendar.isDate(christmasDayInLondon.instant, inSameDayAs: during.instant))")
+    print("Still:  \(calendar.isDate(christmasDayInLondon.instant, inSameDayAs: still.instant))")
 
   }
 
@@ -168,21 +168,21 @@ class DatumTests: XCTestCase {
     print("Relative   \(rdt)")
     print("Date       \(rdt.date)")
     print("UTC        \(rdt.offsetDateTimeForUTC)")
-    print("Amsterdam  \(rdt.zonedDateTimeFor(timeZone: amsterdam))")
-    print("Sydney     \(rdt.zonedDateTimeFor(timeZone: sydney))")
-    print("Brisbane   \(rdt.zonedDateTimeFor(timeZone: brisbane))")
-    print("New York   \(rdt.zonedDateTimeFor(timeZone: newyork))")
-    print("Hawaii     \(rdt.zonedDateTimeFor(timeZone: hawaii))")
-    print("15mins     \(rdt.offsetDateTimeFor(utcOffset: 15 * 60))")
+    print("Amsterdam  \(rdt.zonedDateTime(for: amsterdam))")
+    print("Sydney     \(rdt.zonedDateTime(for: sydney))")
+    print("Brisbane   \(rdt.zonedDateTime(for: brisbane))")
+    print("New York   \(rdt.zonedDateTime(for: newyork))")
+    print("Hawaii     \(rdt.zonedDateTime(for: hawaii))")
+    print("15mins     \(rdt.offsetDateTime(for: 15 * 60))")
 
 
-    let inauguration = RelativeDateTime.parse("2013-04-30T14:30:00")!.zonedDateTimeFor(timeZone: amsterdam)
-    let auckland = NSTimeZone(name: "Pacific/Auckland")!
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = NSDateFormatterStyle.FullStyle
-    formatter.locale = NSLocale(localeIdentifier: "en_NZ")
+    let inauguration = RelativeDateTime.parse("2013-04-30T14:30:00")!.zonedDateTime(for: amsterdam)
+    let auckland = TimeZone(identifier: "Pacific/Auckland")!
+    let formatter = DateFormatter()
+    formatter.dateStyle = DateFormatter.Style.full
+    formatter.locale = Locale(identifier: "en_NZ")
     formatter.timeZone = auckland
-    print("The inauguration took place on \(formatter.stringFromDate(inauguration.instant))")
+    print("The inauguration took place on \(formatter.string(from: inauguration.instant))")
 
     XCTAssert(true, "Pass")
   }
@@ -195,10 +195,10 @@ class DatumTests: XCTestCase {
   }
 
   func testPerformanceParse() {
-    self.measureBlock() {
+    self.measure() {
       let count = 1 // 10000
       for _ in 0 ..< count {
-        RelativeDateTime.parse("2015-05-06T09:28:42")
+        _ = RelativeDateTime.parse("2015-05-06T09:28:42")
       }
     }
   }

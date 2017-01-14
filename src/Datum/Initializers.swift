@@ -9,14 +9,14 @@
 import Foundation
 
 extension AbsoluteDateTime {
-  public init(dateInUTC: NSDate) {
+  public init(dateInUTC: Date) {
     self.nsdate = dateInUTC
   }
 }
 
 extension RelativeDateTime {
   public init(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) {
-    let components = NSDateComponents(timeZone: utcTimeZone)
+    var components = DateComponents(timeZone: utcTimeZone)
     components.year = year
     components.month = month
     components.day = day
@@ -24,18 +24,18 @@ extension RelativeDateTime {
     components.minute = minute
     components.second = second
 
-    self.nsdate = utcCalendar.dateFromComponents(components)!
+    self.nsdate = utcCalendar.date(from: components)!
   }
 }
 
 extension RelativeDate {
   public init(year: Int, month: Int, day: Int) {
-    let components = NSDateComponents(timeZone: utcTimeZone)
+    var components = DateComponents(timeZone: utcTimeZone)
     components.year = year
     components.month = month
     components.day = day
 
-    self.nsdate = utcCalendar.dateFromComponents(components)!
+    self.nsdate = utcCalendar.date(from: components)!
   }
 }
 
@@ -44,7 +44,7 @@ extension RelativeTime {
   // Or hours > 24 (maybe leap seconds?)
   // RelativeTime should not be a Duration or Interval
   public init(hour: Int, minute: Int, second: Int) {
-    let components = NSDateComponents(timeZone: utcTimeZone)
+    var components = DateComponents(timeZone: utcTimeZone)
     components.hour = hour
     components.minute = minute
     components.second = second
@@ -54,28 +54,28 @@ extension RelativeTime {
 }
 
 extension ZonedDateTime {
-  public init(relativeDateTime: RelativeDateTime, timeZone: NSTimeZone) {
-    self = relativeDateTime.zonedDateTimeFor(timeZone: timeZone)
+  public init(relativeDateTime: RelativeDateTime, timeZone: TimeZone) {
+    self = relativeDateTime.zonedDateTime(for: timeZone)
   }
 
-  public init(dateInUTC: NSDate, withTimeZone timeZone: NSTimeZone) {
+  public init(dateInUTC: Date, withTimeZone timeZone: TimeZone) {
     self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
     self.timeZone = timeZone
   }
 }
 
 extension ZonedDate {
-  public init(relativeDate: RelativeDate, timeZone: NSTimeZone) {
-    self = relativeDate.zonedDateFor(timeZone: timeZone)
+  public init(relativeDate: RelativeDate, timeZone: TimeZone) {
+    self = relativeDate.zonedDate(for: timeZone)
   }
 }
 
 extension OffsetDateTime {
   public init(relativeDateTime: RelativeDateTime, utcOffset: OffsetInSeconds) {
-    self = relativeDateTime.offsetDateTimeFor(utcOffset: utcOffset)
+    self = relativeDateTime.offsetDateTime(for: utcOffset)
   }
 
-  public init(dateInUTC: NSDate, withUTCOffset utcOffset: OffsetInSeconds) {
+  public init(dateInUTC: Date, withUTCOffset utcOffset: OffsetInSeconds) {
     self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
     self.utcOffset = utcOffset
   }
@@ -83,6 +83,6 @@ extension OffsetDateTime {
 
 extension OffsetDate {
   public init(relativeDate: RelativeDate, utcOffset: OffsetInSeconds) {
-    self = relativeDate.offsetDateFor(utcOffset: utcOffset)
+    self = relativeDate.offsetDate(for: utcOffset)
   }
 }

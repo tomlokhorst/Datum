@@ -17,13 +17,13 @@ extension AbsoluteDateTime: CustomStringConvertible {
 
 extension RelativeDateTime: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.relativeDateTime.stringFromDate(nsdate)
+    return DateFormatters.relativeDateTime.string(from: nsdate)
   }
 }
 
 extension RelativeDate: CustomStringConvertible {
   public var description: String {
-    return DateFormatters.relativeDate.stringFromDate(nsdate)
+    return DateFormatters.relativeDate.string(from: nsdate)
   }
 }
 
@@ -36,42 +36,42 @@ extension RelativeTime: CustomStringConvertible {
       fatalError("RelativeTime: Can't compute date")
     }
 
-    return DateFormatters.relativeTime.stringFromDate(date)
+    return DateFormatters.relativeTime.string(from: date)
   }
 }
 
 extension ZonedDateTime: CustomStringConvertible {
   public var description: String {
-    let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter
+    let dateFormatter = DateFormatters.offsetDateTime.copy() as! DateFormatter
     dateFormatter.timeZone = timeZone
 
-    return dateFormatter.stringFromDate(absoluteDateTime.nsdate) + " \(timeZone.name)"
+    return dateFormatter.string(from: absoluteDateTime.nsdate) + " \(timeZone.identifier)"
   }
 }
 
 extension ZonedDate: CustomStringConvertible {
   public var description: String {
-    let dateFormatter = DateFormatters.offsetDate.copy() as! NSDateFormatter
+    let dateFormatter = DateFormatters.offsetDate.copy() as! DateFormatter
     dateFormatter.timeZone = timeZone
 
-    return dateFormatter.stringFromDate(absoluteDateTime.nsdate) + " \(timeZone.name)"
+    return dateFormatter.string(from: absoluteDateTime.nsdate) + " \(timeZone.identifier)"
   }
 }
 
 extension OffsetDateTime: CustomStringConvertible {
   public var description: String {
-    let dateFormatter = DateFormatters.offsetDateTime.copy() as! NSDateFormatter
-    dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
+    let dateFormatter = DateFormatters.offsetDateTime.copy() as! DateFormatter
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: Int(utcOffset))
 
-    return dateFormatter.stringFromDate(absoluteDateTime.nsdate)
+    return dateFormatter.string(from: absoluteDateTime.nsdate)
   }
 }
 
 extension OffsetDate: CustomStringConvertible {
   public var description: String {
-    let dateFormatter = DateFormatters.offsetDate.copy() as! NSDateFormatter
-    dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: Int(utcOffset))
+    let dateFormatter = DateFormatters.offsetDate.copy() as! DateFormatter
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: Int(utcOffset))
 
-    return dateFormatter.stringFromDate(absoluteDateTime.nsdate)
+    return dateFormatter.string(from: absoluteDateTime.nsdate)
   }
 }

@@ -9,24 +9,24 @@
 import Foundation
 
 public protocol Instant {
-  var instant: NSDate { get }
+  var instant: Date { get }
 }
 
 extension AbsoluteDateTime : Instant {
-  public var instant: NSDate {
-    return nsdate
+  public var instant: Date {
+    return nsdate as Date
   }
 }
 
 extension ZonedDateTime : Instant {
-  public var instant: NSDate {
-    return absoluteDateTime.nsdate
+  public var instant: Date {
+    return absoluteDateTime.nsdate as Date
   }
 }
 
 extension OffsetDateTime : Instant {
-  public var instant: NSDate {
-    return absoluteDateTime.nsdate
+  public var instant: Date {
+    return absoluteDateTime.nsdate as Date
   }
 
 }
