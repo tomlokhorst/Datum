@@ -20,6 +20,16 @@ extension RelativeDateTime {
     return RelativeDate(nsdate: components.date!)
   }
 
+  public var time: RelativeTime {
+    let calendar = Calendar(timeZone: utcTimeZone)
+    var components = calendar.dateComponents(in: utcTimeZone, from: nsdate)
+    components.year = 0
+    components.month = 0
+    components.day = 0
+
+    return RelativeTime(components: components)
+  }
+
   public func zonedDateTime(for timeZone: TimeZone) -> ZonedDateTime {
     let date = nsdate.addingTimeInterval(-TimeInterval(timeZone.secondsFromGMT(for: nsdate)))
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)

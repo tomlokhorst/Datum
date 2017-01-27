@@ -27,6 +27,7 @@ class DatumTests: XCTestCase {
 
     let dateTime = date.withTime(time)
     XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42")
+    XCTAssertEqual(dateTime.time.description, "19:11:42")
   }
 
   func test_add_RelativeDate_and_RelativeTime_overflow_positive_day() {
@@ -35,6 +36,7 @@ class DatumTests: XCTestCase {
 
     let dateTime = date.withTime(time)
     XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42")
+    XCTAssertEqual(dateTime.time.description, "00:11:42")
   }
 
   func test_add_RelativeDate_and_RelativeTime_overflow_negative_day() {
