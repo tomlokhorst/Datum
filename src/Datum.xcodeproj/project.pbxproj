@@ -11,7 +11,6 @@
 		E26D9F811B224B2A004DD11D /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F801B224B2A004DD11D /* Converters.swift */; };
 		E26D9F831B2356BE004DD11D /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F821B2356BE004DD11D /* DateFormatters.swift */; };
 		E26D9F861B2357C8004DD11D /* Printers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D9F851B2357C8004DD11D /* Printers.swift */; };
-		E280DA621B22421700B5842F /* Datum.h in Headers */ = {isa = PBXBuildFile; fileRef = E280DA611B22421700B5842F /* Datum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E280DA681B22421700B5842F /* Datum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E280DA5C1B22421700B5842F /* Datum.framework */; };
 		E280DA6F1B22421700B5842F /* DatumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA6E1B22421700B5842F /* DatumTests.swift */; };
 		E280DA791B22427100B5842F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280DA781B22427100B5842F /* Types.swift */; };
@@ -39,7 +38,6 @@
 		E26D9F851B2357C8004DD11D /* Printers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Printers.swift; sourceTree = "<group>"; };
 		E280DA5C1B22421700B5842F /* Datum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Datum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E280DA601B22421700B5842F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E280DA611B22421700B5842F /* Datum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Datum.h; sourceTree = "<group>"; };
 		E280DA671B22421700B5842F /* DatumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E280DA6D1B22421700B5842F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E280DA6E1B22421700B5842F /* DatumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatumTests.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 		E280DA5F1B22421700B5842F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E280DA611B22421700B5842F /* Datum.h */,
 				E280DA601B22421700B5842F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -163,7 +160,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E280DA621B22421700B5842F /* Datum.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
