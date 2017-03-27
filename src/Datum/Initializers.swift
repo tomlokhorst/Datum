@@ -58,7 +58,7 @@ extension ZonedDateTime {
     self = relativeDateTime.zonedDateTime(for: timeZone)
   }
 
-  public init(dateInUTC: Date, withTimeZone timeZone: TimeZone) {
+  public init(dateInUTC: Date, timeZone: TimeZone) {
     self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
     self.timeZone = timeZone
   }
@@ -75,7 +75,7 @@ extension OffsetDateTime {
     self = relativeDateTime.offsetDateTime(for: utcOffset)
   }
 
-  public init(dateInUTC: Date, withUTCOffset utcOffset: OffsetInSeconds) {
+  public init(dateInUTC: Date, utcOffset: OffsetInSeconds) {
     self.absoluteDateTime = AbsoluteDateTime(nsdate: dateInUTC)
     self.utcOffset = utcOffset
   }

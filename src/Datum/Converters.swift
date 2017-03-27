@@ -58,8 +58,8 @@ extension RelativeDate {
     return RelativeDateTime(nsdate: nsdate)
   }
 
-  public func withTime(_ relativeTime: RelativeTime) -> RelativeDateTime {
-    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: self.nsdate)!
+  public func with(time: RelativeTime) -> RelativeDateTime {
+    let resultDate = utcCalendar.date(byAdding: time.components, to: self.nsdate)!
 
     return RelativeDateTime(nsdate: resultDate)
   }
@@ -93,7 +93,7 @@ extension ZonedDateTime {
     return ZonedDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), timeZone: timeZone)
   }
 
-  public func withTimeZone(_ timeZone: TimeZone) -> ZonedDateTime {
+  public func with(timeZone: TimeZone) -> ZonedDateTime {
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
@@ -113,13 +113,13 @@ extension ZonedDate {
     return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
-  public func withTime(_ relativeTime: RelativeTime) -> ZonedDateTime {
-    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: absoluteDateTime.nsdate)!
+  public func with(time: RelativeTime) -> ZonedDateTime {
+    let resultDate = utcCalendar.date(byAdding: time.components, to: absoluteDateTime.nsdate)!
 
     return ZonedDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), timeZone: timeZone)
   }
 
-  public func withTimeZone(_ timeZone: TimeZone) -> ZonedDate {
+  public func zonedDate(for timeZone: TimeZone) -> ZonedDate {
     return ZonedDate(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
@@ -148,8 +148,12 @@ extension OffsetDateTime {
     return OffsetDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), utcOffset: utcOffset)
   }
 
-  public func withUTCOffset(_ utcOffset: OffsetInSeconds) -> OffsetDateTime {
+  public func with(utcOffset: OffsetInSeconds) -> OffsetDateTime {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
+  }
+
+  public func zonedDateTime(for timeZone: TimeZone) -> ZonedDateTime {
+    return ZonedDateTime(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public var relativeDateTimeWithoutUTCOffset: RelativeDateTime {
@@ -164,14 +168,18 @@ extension OffsetDate {
     return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 
-  public func withTime(_ relativeTime: RelativeTime) -> OffsetDateTime {
-    let resultDate = utcCalendar.date(byAdding: relativeTime.components, to: absoluteDateTime.nsdate)!
+  public func with(time: RelativeTime) -> OffsetDateTime {
+    let resultDate = utcCalendar.date(byAdding: time.components, to: absoluteDateTime.nsdate)!
 
     return OffsetDateTime(absoluteDateTime: AbsoluteDateTime(nsdate: resultDate), utcOffset: utcOffset)
   }
 
-  public func withUTCOffset(_ utcOffset: OffsetInSeconds) -> OffsetDate {
+  public func with(utcOffset: OffsetInSeconds) -> OffsetDate {
     return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
+  }
+
+  public func zonedDate(for timeZone: TimeZone) -> ZonedDate {
+    return ZonedDate(absoluteDateTime: absoluteDateTime, timeZone: timeZone)
   }
 
   public var relativeDateWithoutUTCOffset: RelativeDate {

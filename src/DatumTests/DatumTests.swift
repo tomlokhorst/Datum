@@ -25,7 +25,7 @@ class DatumTests: XCTestCase {
     let date = RelativeDate.parse("2016-02-25")!
     let time = RelativeTime.parse("19:11:42")!
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42")
     XCTAssertEqual(dateTime.time.description, "19:11:42")
   }
@@ -34,7 +34,7 @@ class DatumTests: XCTestCase {
     let date = RelativeDate.parse("2016-02-25")!
     let time = RelativeTime(hour: 24, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42")
     XCTAssertEqual(dateTime.time.description, "00:11:42")
   }
@@ -43,7 +43,7 @@ class DatumTests: XCTestCase {
     let date = RelativeDate.parse("2016-02-25")!
     let time = RelativeTime(hour: -1, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42")
   }
 
@@ -51,7 +51,7 @@ class DatumTests: XCTestCase {
     let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
     let time = RelativeTime.parse("19:11:42")!
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42+02:00 Europe/Athens")
   }
 
@@ -59,7 +59,7 @@ class DatumTests: XCTestCase {
     let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
     let time = RelativeTime(hour: 24, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42+02:00 Europe/Athens")
   }
 
@@ -67,7 +67,7 @@ class DatumTests: XCTestCase {
     let date = ZonedDate.init(relativeDate: RelativeDate.parse("2016-02-25")!, timeZone: athens)
     let time = RelativeTime(hour: -1, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42+02:00 Europe/Athens")
   }
 
@@ -75,7 +75,7 @@ class DatumTests: XCTestCase {
     let date = OffsetDate.parse("2016-02-25-13:00")!
     let time = RelativeTime.parse("19:11:42")!
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-25T19:11:42-13:00")
   }
 
@@ -83,7 +83,7 @@ class DatumTests: XCTestCase {
     let date = OffsetDate.parse("2016-02-25-13:00")!
     let time = RelativeTime(hour: 24, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-26T00:11:42-13:00")
   }
 
@@ -91,7 +91,7 @@ class DatumTests: XCTestCase {
     let date = OffsetDate.parse("2016-02-25-13:00")!
     let time = RelativeTime(hour: -1, minute: 11, second: 42)
 
-    let dateTime = date.withTime(time)
+    let dateTime = date.with(time: time)
     XCTAssertEqual(dateTime.description, "2016-02-24T23:11:42-13:00")
   }
 
