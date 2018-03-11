@@ -74,14 +74,22 @@ extension OffsetDateTime {
       return nil
     }
 
-    let start = string.characters.index(string.startIndex, offsetBy: 19)
+    let start = string.index(string.startIndex, offsetBy: 19)
     let end = string.endIndex
-    let abbr = string.substring(with: start ..< end)
-    let timeZone = TimeZone(abbreviation: "UTC\(abbr)")!
+    let abbr = string[start ..< end]
+    let utcOffset: OffsetInSeconds
+
+    if abbr == "Z" {
+      utcOffset = 0
+    }
+    else {
+      guard let timeZone = TimeZone(abbreviation: "UTC\(abbr)") else { return nil }
+      utcOffset = timeZone.secondsFromGMT()
+    }
 
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
-    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
+    return OffsetDateTime(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 }
 
@@ -91,13 +99,21 @@ extension OffsetDate {
       return nil
     }
 
-    let start = string.characters.index(string.startIndex, offsetBy: 10)
+    let start = string.index(string.startIndex, offsetBy: 10)
     let end = string.endIndex
-    let abbr = string.substring(with: start ..< end)
-    let timeZone = TimeZone(abbreviation: "UTC\(abbr)")!
+    let abbr = string[start ..< end]
+    let utcOffset: OffsetInSeconds
+
+    if abbr == "Z" {
+      utcOffset = 0
+    }
+    else {
+      guard let timeZone = TimeZone(abbreviation: "UTC\(abbr)") else { return nil }
+      utcOffset = timeZone.secondsFromGMT()
+    }
 
     let absoluteDateTime = AbsoluteDateTime(nsdate: date)
 
-    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: timeZone.secondsFromGMT())
+    return OffsetDate(absoluteDateTime: absoluteDateTime, utcOffset: utcOffset)
   }
 }

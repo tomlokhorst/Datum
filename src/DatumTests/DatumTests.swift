@@ -133,7 +133,7 @@ class DatumTests: XCTestCase {
     formatter.timeZone = TimeZone(identifier: "UTC")
 
     let str = "00:45:32+01:00"
-    print("\(formatter.date(from: str))")
+    print("\(formatter.date(from: str)!)")
   }
 
   func testChristmas() {
