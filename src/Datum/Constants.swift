@@ -11,7 +11,6 @@ import Foundation
 internal let utcTimeZone = TimeZone(identifier: "UTC")!
 internal let utcCalendar = Calendar(timeZone: utcTimeZone)
 
-
 extension Calendar {
   internal init(timeZone: TimeZone) {
     self.init(identifier: .gregorian)

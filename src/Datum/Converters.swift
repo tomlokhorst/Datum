@@ -10,22 +10,22 @@ import Foundation
 
 extension RelativeDateTime {
   public var date: RelativeDate {
-    let calendar = Calendar(timeZone: utcTimeZone)
-    var components = calendar.dateComponents(in: utcTimeZone, from: nsdate)
+    var components = utcCalendar.dateComponents(in: utcTimeZone, from: nsdate)
     components.hour = 0
     components.minute = 0
     components.second = 0
     components.nanosecond = 0
+    components.calendar = utcCalendar
 
     return RelativeDate(nsdate: components.date!)
   }
 
   public var time: RelativeTime {
-    let calendar = Calendar(timeZone: utcTimeZone)
-    var components = calendar.dateComponents(in: utcTimeZone, from: nsdate)
+    var components = utcCalendar.dateComponents(in: utcTimeZone, from: nsdate)
     components.year = 0
     components.month = 0
     components.day = 0
+    components.calendar = utcCalendar
 
     return RelativeTime(components: components)
   }
@@ -89,6 +89,7 @@ extension ZonedDateTime {
     components.minute = 0
     components.second = 0
     components.nanosecond = 0
+    components.calendar = calendar
 
     return ZonedDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), timeZone: timeZone)
   }
@@ -144,6 +145,7 @@ extension OffsetDateTime {
     components.minute = 0
     components.second = 0
     components.nanosecond = 0
+    components.calendar = calendar
 
     return OffsetDate(absoluteDateTime: AbsoluteDateTime(nsdate: components.date!), utcOffset: utcOffset)
   }

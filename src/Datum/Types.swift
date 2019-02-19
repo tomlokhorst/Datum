@@ -10,38 +10,44 @@ import Foundation
 
 public typealias OffsetInSeconds = Int
 
-public struct AbsoluteDateTime {
+public struct AbsoluteDateTime: Hashable {
   internal let nsdate: Date // Invariant: Should be UTC
 }
 
-public struct RelativeDateTime {
+public struct RelativeDateTime: Hashable {
   internal let nsdate: Date // Invariant: Should be UTC
 }
 
-public struct RelativeDate {
+public struct RelativeDate: Hashable {
   internal let nsdate: Date // Invariant: Should be midnight UTC
 }
 
-public struct RelativeTime {
+public struct RelativeTime: Hashable {
   internal let components: DateComponents
+
+  public static func ==(lhs: RelativeTime, rhs: RelativeTime) -> Bool {
+    return lhs.components.hour == rhs.components.hour
+      && lhs.components.minute == rhs.components.minute
+      && lhs.components.second == rhs.components.second
+  }
 }
 
-public struct ZonedDateTime {
+public struct ZonedDateTime: Hashable {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
   public let timeZone: TimeZone
 }
 
-public struct ZonedDate {
+public struct ZonedDate: Hashable {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
   public let timeZone: TimeZone
 }
 
-public struct OffsetDateTime {
+public struct OffsetDateTime: Hashable {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be UTC
   public let utcOffset: OffsetInSeconds
 }
 
-public struct OffsetDate {
+public struct OffsetDate: Hashable {
   internal let absoluteDateTime: AbsoluteDateTime // Invariant: Should be midnight UTC
   public let utcOffset: OffsetInSeconds
 }

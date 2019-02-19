@@ -48,6 +48,7 @@ extension RelativeTime {
     components.hour = hour
     components.minute = minute
     components.second = second
+    components.calendar = utcCalendar
 
     self.components = components
   }
