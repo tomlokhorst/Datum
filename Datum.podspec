@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Datum"
-  s.version      = "0.1.0"
+  s.version      = "0.2.0"
   s.license      = "MIT"
 
   s.summary      = "Swift library for dealing with different date types."
@@ -19,6 +19,8 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.10'
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
+
+  s.swift_version = '5.1'
 
   s.source          = { :git => "https://github.com/tomlokhorst/Datum.git", :tag => s.version }
   s.requires_arc    = true
